@@ -1,8 +1,17 @@
 import React from 'react'
+import Container from './components/Container'
+import Flex from './components/Flex'
+import ImageSrc from './assets/product.webp'
+import Image from './components/Image'
+import Button from './components/Button'
 
 const App = () => {
   return (
-    <div className='bg-red-500'>App</div>
+    <Container>
+      <Button text="Viwe all product"/>
+      
+     
+    </Container>
   )
 }
 
