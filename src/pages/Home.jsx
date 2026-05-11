@@ -1,0 +1,17 @@
+import React from 'react'
+import Offer from '../layouts/Offer'
+import Footer from '../layouts/Footer'
+import Navber from '../layouts/Navber'
+
+const Home = () => {
+  return (
+    <div>
+        <Offer/>
+        <Navber/>
+        <h1 className='py-20'>Home page</h1>
+        <Footer/>
+    </div>
+  )
+}
+
+export default Home

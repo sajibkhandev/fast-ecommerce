@@ -7,3 +7,6 @@
   --color-primary: #DB4444; 
   --font-pop: ["Poppins", "sans-serif"]; 
 }
+.one{
+  background: #00000080;
+}

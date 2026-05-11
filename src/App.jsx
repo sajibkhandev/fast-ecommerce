@@ -1,17 +1,26 @@
-import React from 'react'
-import Container from './components/Container'
-import Flex from './components/Flex'
-import ImageSrc from './assets/product.webp'
-import Image from './components/Image'
-import Button from './components/Button'
+import {createRoutesFromElements,createBrowserRouter,Route,RouterProvider,} from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+       <Route path="/" element={<Home />}></Route>
+       <Route path="/about" element={<About />}></Route>
+       <Route path="/contact" element={<Contact />}></Route>
+    </>
+  )
+);
+
 
 const App = () => {
   return (
-    <Container>
-      <Button text="Viwe all product"/>
-      
-     
-    </Container>
+    <>
+    <RouterProvider router={router} />
+    
+    </>
   )
 }
 
