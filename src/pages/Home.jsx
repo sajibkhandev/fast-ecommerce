@@ -9,6 +9,14 @@ import { FaStar } from 'react-icons/fa'
 import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoEyeOutline } from 'react-icons/io5'
 import Card from '../components/Card'
+import Heading from '../components/Heading'
+import SubHeading from '../components/SubHeading'
+import FlashSale from '../layouts/FlashSale'
+import BrowseByCategory from '../layouts/BrowseByCategory'
+import BestSellingProducts from '../layouts/BestSellingProducts'
+import Promtion from '../assets/promotion.png'
+import { Link } from 'react-router-dom'
+import ExploreOurProducts from '../layouts/ExploreOurProducts'
 
 const Home = () => {
   return (
@@ -16,12 +24,16 @@ const Home = () => {
         <Offer/>
         <Navber/>
         <Bannar/>
+        <FlashSale/>
+        <BrowseByCategory/>
+        <BestSellingProducts/>
+
+       <Link to='/contact'><Image className={`mx-auto py-20`} src={Promtion}/></Link>
+       <ExploreOurProducts/>
+        
 
 
-       
-    <Card image={Product1} title="Product One" regularprice="200" saleprice="150"/>
-    <Card image={Product1} title="Product One" regularprice="200" saleprice="150"/>
-    <Card image={Product1} title="Product One" regularprice="200" saleprice="150"/>
+    
 
 
 
