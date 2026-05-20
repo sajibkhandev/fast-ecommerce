@@ -1,22 +1,16 @@
-import React from 'react'
-import Offer from '../layouts/Offer'
+import { Link } from 'react-router-dom'
+import Promtion from '../assets/promotion.png'
+import Image from '../components/Image'
+import Bannar from '../layouts/Bannar'
+import BestSellingProducts from '../layouts/BestSellingProducts'
+import BrowseByCategory from '../layouts/BrowseByCategory'
+import ExploreOurProducts from '../layouts/ExploreOurProducts'
+import FlashSale from '../layouts/FlashSale'
 import Footer from '../layouts/Footer'
 import Navber from '../layouts/Navber'
-import Bannar from '../layouts/Bannar'
-import Image from '../components/Image'
-import Product1 from '../assets/product1.png'
-import { FaStar } from 'react-icons/fa'
-import { IoIosHeartEmpty } from 'react-icons/io'
-import { IoEyeOutline } from 'react-icons/io5'
-import Card from '../components/Card'
-import Heading from '../components/Heading'
-import SubHeading from '../components/SubHeading'
-import FlashSale from '../layouts/FlashSale'
-import BrowseByCategory from '../layouts/BrowseByCategory'
-import BestSellingProducts from '../layouts/BestSellingProducts'
-import Promtion from '../assets/promotion.png'
-import { Link } from 'react-router-dom'
-import ExploreOurProducts from '../layouts/ExploreOurProducts'
+import NewArrival from '../layouts/NewArrival'
+import Offer from '../layouts/Offer'
+import Customer from '../layouts/Customer'
 
 const Home = () => {
   return (
@@ -30,6 +24,8 @@ const Home = () => {
 
        <Link to='/contact'><Image className={`mx-auto py-20`} src={Promtion}/></Link>
        <ExploreOurProducts/>
+       <NewArrival/>
+       <Customer/>
         
 
 
