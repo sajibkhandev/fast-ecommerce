@@ -6,17 +6,14 @@ import BestSellingProducts from '../layouts/BestSellingProducts'
 import BrowseByCategory from '../layouts/BrowseByCategory'
 import ExploreOurProducts from '../layouts/ExploreOurProducts'
 import FlashSale from '../layouts/FlashSale'
-import Footer from '../layouts/Footer'
-import Navber from '../layouts/Navber'
+
 import NewArrival from '../layouts/NewArrival'
-import Offer from '../layouts/Offer'
 import Customer from '../layouts/Customer'
 
 const Home = () => {
   return (
     <div>
-        <Offer/>
-        <Navber/>
+      
         <Bannar/>
         <FlashSale/>
         <BrowseByCategory/>
@@ -26,16 +23,7 @@ const Home = () => {
        <ExploreOurProducts/>
        <NewArrival/>
        <Customer/>
-        
-
-
-    
-
-
-
-
-
-        <Footer/>
+       
     </div>
   )
 }
