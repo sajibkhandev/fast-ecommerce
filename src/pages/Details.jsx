@@ -17,6 +17,8 @@ import Product1 from '../assets/product1.png'
 import Product2 from '../assets/product2.png'
 import Product3 from '../assets/product3.png'
 import Product4 from '../assets/product4.png'
+import Button from '../components/Button'
+import { CiHeart } from 'react-icons/ci'
 
 const Details = () => {
   return (
@@ -115,7 +117,7 @@ const Details = () => {
               </Flex>
             </Flex>
 
-            <Flex>
+            <Flex className="items-center justify-between">
               <div className="flex items-center border border-black/50 w-39.75 rounded">
 
                 <div className="flex justify-center items-center w-10 h-11 text-xl hover:bg-primary hover:text-white duration-300  cursor-pointer">
@@ -131,9 +133,15 @@ const Details = () => {
                 </div>
               </div>
 
-              <div></div>
+              <div>
+                <Button className={`!py-2.5`} text="Buy Now"/>
+              </div>
 
-              <div></div>
+              <div className='w-10 h-10 border border-black/50 rounded flex justify-center items-center'>
+              <CiHeart className='text-2xl'/>
+              </div>
+
+
             </Flex>
 
 
