@@ -9,6 +9,7 @@ import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoCartOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 
+
 const Navber = () => {
   return (
     <nav className='pt-10 pb-4 border border-[#00000080]'>
@@ -17,12 +18,14 @@ const Navber = () => {
                 <div className='w-4/12'>
                <Link to='/'> <Image src={Logo} alt={"logo"}/></Link>
                 </div>
-                <div className='w-4/12'>
+                <div className='w-5/12'>
                 <ul className='flex gap-x-12 cursor-pointer'>
                   <Link to="/"> <ListItem text="Home"/> </Link>
                   <Link to="/contact"> <ListItem text="Contact"/> </Link>
                   <Link to="/about"> <ListItem text="About"/> </Link>
                   <Link to="/signup"> <ListItem text="Sign Up"/> </Link>
+                  <Link to="/login"> <ListItem text="Login"/> </Link>
+                 
                    
                    
                    
