@@ -8,6 +8,8 @@
   --color-primary: #DB4444;
   --color-star: #FFAD33;
   --font-pop: ["Poppins", "sans-serif"];
+  --font-inter: ["Inter", "sans-serif"];
+
 }
 .one{
   background: #00000080;
