@@ -4,7 +4,7 @@ import { FaStar } from 'react-icons/fa'
 import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoEyeOutline } from 'react-icons/io5'
 
-const Card = ({image,title,regularprice,saleprice}) => {
+const Card = ({image,title,regularprice,saleprice ,className}) => {
   return (
      <div className='w-67.5 h-87.5 '>
           <div className='relative overflow-hidden group w-full h-62.5 bg-offwhitedark flex justify-center items-center'>
@@ -12,7 +12,7 @@ const Card = ({image,title,regularprice,saleprice}) => {
             <div className='absolute top-3 left-3'>
               <p className='py-1 px-3 bg-primary rounded text-offwhitedark text-xs font-pop font-normal'>-40%</p>
             </div>
-            <div className='flex justify-center items-center absolute top-3 right-3 w-8.5 h-8.5 bg-white rounded-full'>
+            <div className={`flex justify-center items-center absolute top-3 right-3 w-8.5 h-8.5 bg-white rounded-full ${className}`}>
               <IoIosHeartEmpty className='text-xl' />
             </div>
             <div className='flex justify-center items-center absolute top-14 right-3 w-8.5 h-8.5 bg-white rounded-full'>

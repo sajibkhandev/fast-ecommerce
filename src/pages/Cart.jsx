@@ -1,5 +1,7 @@
-import monitor from "./src/assets/Monitor-Cart-Small.png"
-import Console from "./src/assets/console.png"
+
+import monitor from "../assets/Monitor-Cart-Small.png";
+import Console from "../assets/console.png";
+const Cart = () => {
   return (
     <div className="p-8">
       
