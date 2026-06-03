@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from 'react'
 import Container from '../components/Container'
 import SubHeading from '../components/SubHeading'
 import Heading from '../components/Heading'
@@ -11,6 +12,16 @@ import ProductOne from '../assets/product1.png'
 
 
 const ExploreOurProducts = () => {
+   let [alldata,setAlldata]=useState([])
+
+
+    useEffect(()=>{
+      fetch("https://dummyjson.com/products")
+      .then(res=>res.json())
+      .then(data=>setAlldata(data.products))
+  
+    },[])
+
   return (
   <section className='pb-[168px]'>
         <Container>
@@ -22,15 +33,17 @@ const ExploreOurProducts = () => {
            <Button text="View All"/>
           </Flex>
 
+          
+
           <Flex className={`justify-between flex-wrap gap-y-15 pt-15`}>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
-            <Card title="Product One" image={ProductOne} regularprice="300"saleprice="200"/>
+            {
+              alldata.map((item,index)=>(
+                (index>9 && index<18) &&
+
+                <Card title={item.title} image={item.thumbnail} regularprice="300"saleprice="200"/>
+                
+              ))
+            }
 
           </Flex>
           <div className='text-center pt-16'>
