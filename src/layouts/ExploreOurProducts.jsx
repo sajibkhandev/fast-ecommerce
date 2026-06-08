@@ -13,6 +13,7 @@ import ProductOne from '../assets/product1.png'
 
 const ExploreOurProducts = () => {
    let [alldata,setAlldata]=useState([])
+   let [show,setShow]=useState(16)
 
 
     useEffect(()=>{
@@ -37,17 +38,18 @@ const ExploreOurProducts = () => {
 
           <Flex className={`justify-between flex-wrap gap-y-15 pt-15`}>
             {
-              alldata.map((item,index)=>(
-                (index>9 && index<18) &&
+              alldata.slice(8,show).map((item,index)=>(
+                
 
-                <Card title={item.title} image={item.thumbnail} regularprice="300"saleprice="200"/>
+                <Card id={item.id} title={item.title} image={item.thumbnail} regularprice="300"saleprice="200"/>
                 
               ))
             }
 
           </Flex>
-          <div className='text-center pt-16'>
+          <div onClick={()=>setShow(alldata.length)} className='text-center pt-16'>
             <Button text={`View All Products`}/>
+            
           </div>
         </Container>
     </section>

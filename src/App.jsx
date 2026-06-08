@@ -20,7 +20,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout/>}>
 
         <Route path="/" element={<Home />}></Route>
-        <Route path="about" element={<About />}></Route>
+        <Route path="about/" element={<About />}></Route>
         <Route path="contact" element={<Contact />}></Route>
         <Route path="signup" element={<Signup />}></Route>
         <Route path="login" element={<Login />}></Route>
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
         <Route path="cart" element={<Cart />}></Route>
         <Route path="account" element={<Account />}></Route>
         {/* <Route path="checkout" element={<Checkout />}></Route> */}
-        <Route path="productdetails" element={<Details />}></Route>
+        <Route path="productdetails/:id" element={<Details />}></Route>
         <Route path="wishlist" element={<Wishlist />}></Route>
         <Route path="*" element={<Error />}></Route>
     </Route>

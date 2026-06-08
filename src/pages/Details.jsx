@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import Container from '../components/Container'
 import ListItem from '../components/ListItem'
 import Flex from '../components/Flex'
@@ -19,8 +21,32 @@ import Product3 from '../assets/product3.png'
 import Product4 from '../assets/product4.png'
 import Button from '../components/Button'
 import { CiHeart } from 'react-icons/ci'
+import { useLocation, useParams } from 'react-router-dom'
 
 const Details = () => {
+  let [alldata, setAlldata] = useState([]);
+  let params=useParams()
+ 
+  
+  
+  // console.log(params.id);
+
+
+    useEffect(() => {
+    window.scrollTo({ top: 0 })
+      
+  })
+  useEffect(() => {
+        fetch(`https://dummyjson.com/products/${params.id}`)
+          .then((res) => res.json())
+          .then((data) => setAlldata(data));
+      }, []);
+
+
+
+
+
+
   return (
     <section className='pb-35'>
       <Container>
@@ -39,22 +65,22 @@ const Details = () => {
         <Flex>
           <div className="w-2/12 flex flex-col gap-y-4">
             <div className="w-42.5 h-34.5 rounded bg-offwhite flex justify-center items-center">
-              <Image src={Productdetails1} />
+              <Image src={alldata.thumbnail} />
             </div>
             <div className="w-42.5 h-34.5 rounded bg-offwhite flex justify-center items-center">
-              <Image src={Productdetails2} />
+              <Image src={alldata.thumbnail} />
             </div>
             <div className="w-42.5 h-34.5 rounded bg-offwhite flex justify-center items-center">
-              <Image src={Productdetails3} />
+              <Image src={alldata.thumbnail} />
             </div>
             <div className="w-42.5 h-34.5 rounded bg-offwhite flex justify-center items-center">
-              <Image src={Productdetails4} />
+              <Image src={alldata.thumbnail} />
             </div>
           </div>
 
           <div className="w-6/12">
             <div className="w-125 h-150 bg-offwhite rounded flex justify-center items-center">
-              <Image src={Productdetailsmain} />
+              <Image src={alldata.thumbnail} />
             </div>
           </div>
 
