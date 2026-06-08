@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
-import Checkout from "./pages/Checkout";
+// import Checkout from "./pages/Checkout";
 import Details from "./pages/Details";
 import Wishlist from "./pages/Wishlist";
 import Error from "./pages/Error";
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         <Route path="products" element={<Products />}></Route>
         <Route path="cart" element={<Cart />}></Route>
         <Route path="account" element={<Account />}></Route>
-        <Route path="checkout" element={<Checkout />}></Route>
+        {/* <Route path="checkout" element={<Checkout />}></Route> */}
         <Route path="productdetails" element={<Details />}></Route>
         <Route path="wishlist" element={<Wishlist />}></Route>
         <Route path="*" element={<Error />}></Route>
