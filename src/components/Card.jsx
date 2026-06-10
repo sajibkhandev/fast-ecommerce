@@ -1,15 +1,16 @@
-import Image from '../components/Image'
-import Product1 from '../assets/product1.png'
 import { FaStar } from 'react-icons/fa'
 import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoEyeOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import Image from '../components/Image'
 
 const Card = ({id,image,title,regularprice,saleprice ,className}) => {
   return (
      <div className='w-67.5 h-87.5 '>
           <div className='relative overflow-hidden group w-full h-62.5 bg-offwhitedark flex justify-center items-center'>
-           <Link to={`/productdetails/${id}`}> <Image src={image}/></Link>
+            <Link to={`/productdetails/${id}`}>
+               <Image src={image}/>
+            </Link>
             <div className='absolute top-3 left-3'>
               <p className='py-1 px-3 bg-primary rounded text-offwhitedark text-xs font-pop font-normal'>-40%</p>
             </div>
@@ -31,9 +32,12 @@ const Card = ({id,image,title,regularprice,saleprice ,className}) => {
 
           </div>
           <div>
+
             <Link to={`/productdetails/${id}`}>
-                   <h4 className='text-base text-black font-pop font-medium pt-4'>{title}</h4>
+            <h4 className='text-base text-black font-pop font-medium pt-4'>{title}</h4>
+            
             </Link>
+            
             <p className='text-base text-primary font-pop font-medium py-2'>${saleprice}<span className='text-black/50 pl-3'><del className='text-black/50'>${regularprice}</del></span></p>
             <ul className='flex gap-x-1 items-center'>
               <li><FaStar className='text-[#FFAD33]'/></li>

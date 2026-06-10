@@ -1,16 +1,41 @@
-import React from 'react'
-import Container from '../components/Container'
-import Image from '../components/Image'
-import Logo from '../assets/logo.png'
-import Flex from '../components/Flex'
-import ListItem from '../components/ListItem'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoCartOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import Logo from '../assets/logo.png'
+import Container from '../components/Container'
+import Flex from '../components/Flex'
+import Image from '../components/Image'
+import ListItem from '../components/ListItem'
 
 
 const Navber = () => {
+  let [alldata,setAllData]=useState([])
+  let [search,setSearch]=useState([])
+  let [input,setInput]=useState('')
+
+console.log(input.length);
+
+  let handleInput=(e)=>{
+    setInput(e.target.value);
+    
+    let search=alldata.filter(item=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    
+    setSearch(search);
+    
+  }
+
+  useEffect(()=>{
+    axios.get("https://dummyjson.com/products/")
+    .then(res=>setAllData(res.data.products))
+
+  },[])
+
+
+
+
   return (
     <nav className='pt-10 pb-4 border border-[#00000080]'>
         <Container>
@@ -32,11 +57,25 @@ const Navber = () => {
                 </ul>
                     
                     </div>
-                <div className='w-4/12 flex justify-between items-center pl-10'>
+                <div className='relative w-4/12 flex justify-between items-center pl-10'>
                    <div className='relative w-[243px] bg-[#F5F5F5]'>
-                       <input className='w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]' type="text" placeholder='What are you looking for?'/>
+                       <input onChange={handleInput} className='w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]' type="text" placeholder='What are you looking for?'/>
                        <FiSearch className='absolute top-1/2 -translate-y-1/2 right-4'/>
                    </div>
+                {/* Serceah bar */}
+
+
+                   {
+                    input.length && 
+                    search.length &&
+                    <div className=' absolute top-[45px] z-50 rounded left-0 w-full py-10 bg-[#F5F5F5] py-5 px-10'>
+                       {
+                        search.map(item=>(
+                         <Link to={`/productdetails/${item.id}`}> <li className='py-2'>{item.title}</li></Link>
+                        ))
+                       }
+                   </div>
+                   }
 
                   <Flex className='gap-x-5'>
                      <IoIosHeartEmpty className='text-2xl' />

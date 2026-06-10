@@ -1,48 +1,47 @@
-import { useEffect, useState } from 'react'
 
-import Container from '../components/Container'
-import ListItem from '../components/ListItem'
-import Flex from '../components/Flex'
-import Image from '../components/Image'
-import Productdetails1 from '../assets/productdetails1.png'
-import Productdetails2 from '../assets/productdetails2.png'
-import Productdetails3 from '../assets/productdetails3.png'
-import Productdetails4 from '../assets/productdetails4.png'
-import Productdetailsmain from '../assets/productdetailsmain.png'
+import { useEffect, useState } from 'react'
+import { CiHeart } from 'react-icons/ci'
 import { FaStar } from 'react-icons/fa'
-import ProductdetailsSize from '../components/ProductdetailsSize'
-import { TbTruckDelivery } from 'react-icons/tb'
 import { LuRefreshCcw } from 'react-icons/lu'
-import SubHeading from '../components/SubHeading'
-import Card from '../components/Card'
+import { TbTruckDelivery } from 'react-icons/tb'
+import { useParams } from 'react-router-dom'
 import Product1 from '../assets/product1.png'
 import Product2 from '../assets/product2.png'
 import Product3 from '../assets/product3.png'
 import Product4 from '../assets/product4.png'
 import Button from '../components/Button'
-import { CiHeart } from 'react-icons/ci'
-import { useLocation, useParams } from 'react-router-dom'
+import Card from '../components/Card'
+import Container from '../components/Container'
+import Flex from '../components/Flex'
+import Image from '../components/Image'
+import ProductdetailsSize from '../components/ProductdetailsSize'
+import SubHeading from '../components/SubHeading'
 
 const Details = () => {
-  let [alldata, setAlldata] = useState([]);
+   let [alldata,setAlldata]=useState([])
+
+
   let params=useParams()
- 
+   useEffect(()=>{
+      fetch(`https://dummyjson.com/products/${params.id}`)
+      .then(res=>res.json())
+      .then(data=>setAlldata(data))
   
-  
-  // console.log(params.id);
+    },[])
 
 
     useEffect(() => {
     window.scrollTo({ top: 0 })
-      
-  })
-  useEffect(() => {
-        fetch(`https://dummyjson.com/products/${params.id}`)
-          .then((res) => res.json())
-          .then((data) => setAlldata(data));
-      }, []);
+    })
 
+    
+    
+  
+  
 
+  
+ 
+ 
 
 
 
@@ -86,7 +85,7 @@ const Details = () => {
 
           <div className="w-4/12">
             <h2 className="font-inter font-semibold text-2xl text-black">
-              Havic HV G-92 Gamepad
+              {alldata.title}
             </h2>
             <Flex className="py-4">
               <ul className="flex">
@@ -114,7 +113,7 @@ const Details = () => {
               </p>
             </Flex>
             <p className="text-black font-normal font-inter text-2xl">
-              $192.00
+              ${alldata.price}
             </p>
             <p className="font-pop font-normal text-sm text-black w-93.25 pt-6 border-b border-black/50 pb-6 mb-6">
               PlayStation 5 Controller Skin High quality vinyl with air channel
