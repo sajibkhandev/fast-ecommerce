@@ -42,7 +42,7 @@ const Checkout = () => {
             <Checkoutform text={`Email Address`} required={true} />
 
             <Flex className="items-center gap-x-4">
-              <FaCheck className={`text-xl p-0.5 inline-block ${checked ? " text-xl border-2 border-black bg-white text-black" : "bg-primary text-white text-xl"}`} onClick={() => setchecked(!checked)} />
+              <FaCheck className={`text-xl p-0.5 inline-block ${checked ? " text-xl border-2 border-black bg-white text-black" : "bg-primary text-white text-xl"}`} onClick={()=>setchecked(!checked)} />
               <p className="text-black font-pop font-normal text-base text-center">Save this information for faster check-out next time</p>
             </Flex>
           </div>
@@ -61,7 +61,7 @@ const Checkout = () => {
               <Checkoutpayment payment={`Cash On Delievery`} />
             </div>
             <div className="flex gap-x-4 ">
-              <input type="text" className="border rounded-sm w-[300px] border-black placeholder:pl-6 font-pop font-normal text-base text-black/50" placeholder="Coupon Code" />
+              <input type="text" className="border rounded-sm w-75 border-black placeholder:pl-6 font-pop font-normal text-base text-black/50" placeholder="Coupon Code" />
               <Button text={`Apply Coupon`} />
             </div>
             <Button className={`mt-8`} text={`Place Order`} />
