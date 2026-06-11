@@ -1,113 +1,145 @@
 
 import monitor from "../assets/Monitor-Cart-Small.png";
 import Console from "../assets/console.png";
-const Cart = () => {
+import { useState } from "react";
+
+export default function Cart() {
+  const [qty1, setQty1] = useState(1);
+  const [qty2, setQty2] = useState(2);
+  const [coupon, setCoupon] = useState("");
+
+  const price1 = 650;
+  const price2 = 550;
+  const subtotal = price1 * qty1 + price2 * qty2;
+
   return (
-    <div className="p-8">
-      
-      <div className="grid grid-cols-4 font-Pop mb-4 text-gray-500">
-        <p>Product</p>
-        <p>Price</p>
-        <p>Quantity</p>
-        <p>Subtotal</p>
+    <div className="min-h-screen bg-white px-6 py-8 max-w-5xl mx-auto font-['Poppins',sans-serif]">
+      <nav className="mb-8 flex items-center gap-2 text-sm text-gray-400 font-['Poppins',sans-serif]">
+        <span className="cursor-pointer hover:text-gray-600 transition-colors">Home</span>
+        <span>/</span>
+        <span className="font-semibold text-gray-800">Cart</span>
+      </nav>
+
+      <div className="w-full overflow-x-auto rounded-sm border border-gray-200 mb-6">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-200">
+              {["Product", "Price", "Quantity", "Subtotal"].map((h) => (
+                <th
+                  key={h}
+                  className="px-6 py-4 text-left text-sm font-semibold text-gray-700 font-['Poppins',sans-serif]"
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-gray-100 bg-white">
+              <td className="px-6 py-5">
+                <div className="flex items-center gap-3">
+                  <button className="w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center hover:bg-red-600 transition-colors flex-shrink-0">
+                    ✕
+                  </button>
+                  <div className="w-14 h-14 bg-gray-100 rounded" >
+                    <img src={monitor} alt="" />
+                  </div>
+                  <span className="font-medium text-gray-800 font-['Poppins',sans-serif]">LCD Monitor</span>
+                </div>
+              </td>
+              <td className="px-6 py-5 text-gray-700 font-['Poppins',sans-serif]">${price1.toLocaleString()}</td>
+              <td className="px-6 py-5">
+                <div className="flex items-center border border-gray-300 rounded w-fit overflow-hidden">
+                  <span className="px-3 py-1.5 text-gray-800 text-sm min-w-[2.5rem] text-center font-['Poppins',sans-serif]">
+                    {String(qty1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col border-l border-gray-300">
+                    <button onClick={() => setQty1((q) => q + 1)} className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 text-xs leading-none transition-colors">▲</button>
+                    <button onClick={() => setQty1((q) => Math.max(1, q - 1))} className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 text-xs leading-none border-t border-gray-300 transition-colors">▼</button>
+                  </div>
+                </div>
+              </td>
+              <td className="px-6 py-5 font-semibold text-gray-800 font-['Poppins',sans-serif]">${(price1 * qty1).toLocaleString()}</td>
+            </tr>
+
+            <tr className="bg-gray-50/40">
+              <td className="px-6 py-5">
+                <div className="flex items-center gap-3">
+                  <button className="w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center hover:bg-red-600 transition-colors flex-shrink-0">
+                    ✕
+                  </button>
+                  <div className="w-14 h-14 bg-gray-100 rounded" >
+                    <img src={Console} alt="" />
+                  </div>
+                  <span className="font-medium text-gray-800 font-['Poppins',sans-serif]">H1 Gamepad</span>
+                </div>
+              </td>
+              <td className="px-6 py-5 text-gray-700 font-['Poppins',sans-serif]">${price2.toLocaleString()}</td>
+              <td className="px-6 py-5">
+                <div className="flex items-center border border-gray-300 rounded w-fit overflow-hidden">
+                  <span className="px-3 py-1.5 text-gray-800 text-sm min-w-[2.5rem] text-center font-['Poppins',sans-serif]">
+                    {String(qty2).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col border-l border-gray-300">
+                    <button onClick={() => setQty2((q) => q + 1)} className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 text-xs leading-none transition-colors">▲</button>
+                    <button onClick={() => setQty2((q) => Math.max(1, q - 1))} className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 text-xs leading-none border-t border-gray-300 transition-colors">▼</button>
+                  </div>
+                </div>
+              </td>
+              <td className="px-6 py-5 font-semibold text-gray-800 font-['Poppins',sans-serif]">${(price2 * qty2).toLocaleString()}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      
-      <div className="flex items-center justify-between border rounded-lg p-4 mb-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={monitor}
-            className="w-16 h-16"
-            alt=""
-          />
-          <p className="font-Pop">LCD Monitor</p>
-        </div>
-
-        <p className="font-Pop">$650</p>
-
-        <select className="border px-2 py-1 rounded font-Pop">
-          <option>01</option>
-          <option>02</option>
-          <option>03</option>
-          <option>04</option>
-        </select>
-
-        <p className="font-Pop">$650</p>
-      </div>
-
-      
-      <div className="flex items-center justify-between border rounded-lg p-4 mb-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={Console}
-            className="w-16 h-16"
-            alt=""
-          />
-          <p className="font-Pop">H1 Gamepad</p>
-        </div>
-
-        <p className="font-Pop">$550</p>
-
-        <select className="border px-2 py-1 rounded font-Pop">
-          <option>02</option>
-          <option>01</option>
-          <option>03</option>
-          <option>04</option>
-        </select>
-
-        <p className="font-Pop">$1100</p>
-      </div>
-
-      
-      <div className="flex justify-between my-6">
-        <button className="border px-6 py-2 rounded font-Pop">
+      <div className="flex justify-between mb-10">
+        <button className="px-7 py-2.5 border border-gray-800 rounded text-sm font-semibold text-gray-800 hover:bg-gray-800 hover:text-white transition-colors font-['Poppins',sans-serif]">
           Return To Shop
         </button>
-        <button className="border px-6 py-2 rounded font-Pop">
+        <button className="px-7 py-2.5 border border-gray-800 rounded text-sm font-semibold text-gray-800 hover:bg-gray-800 hover:text-white transition-colors font-['Poppins',sans-serif]">
           Update Cart
         </button>
       </div>
 
-      
-      <div className="flex flex-col md:flex-row justify-between gap-6">
-        
-        <div className="flex gap-2">
+      <div className="flex flex-col md:flex-row justify-between gap-8 items-start">
+        <div className="flex gap-3 items-center">
           <input
             type="text"
+            value={coupon}
+            onChange={(e) => setCoupon(e.target.value)}
             placeholder="Coupon Code"
-            className="border px-4 py-2 rounded font-Pop h-[56px]"
+            className="border border-gray-300 rounded px-4 py-2.5 text-sm text-gray-600 placeholder-gray-400 w-52 outline-none focus:border-red-400 transition-colors font-['Poppins',sans-serif]"
           />
-          <button className="bg-red-500 text-white px-6 py-2 rounded font-Pop h-[56px]">
+          <button className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-6 py-2.5 rounded transition-colors font-['Poppins',sans-serif]">
             Apply Coupon
           </button>
         </div>
 
-        
-        <div className="border rounded-lg p-6 w-full max-w-sm">
-          <h2 className="font-Pop text-lg mb-4">Cart Total</h2>
+        <div className="border border-gray-200 rounded p-6 w-full md:w-80">
+          <h2 className="text-lg font-bold text-gray-900 mb-4 font-['Poppins',sans-serif]">
+            Cart Total
+          </h2>
 
-          <div className="flex justify-between border-b py-2">
-            <span className="font-Pop">Subtotal:</span>
-            <span className="font-Pop">$1750</span>
+          <div className="flex justify-between py-3 border-b border-gray-200 text-sm text-gray-700 font-['Poppins',sans-serif]">
+            <span>Subtotal:</span>
+            <span className="font-medium">${subtotal.toLocaleString()}</span>
           </div>
 
-          <div className="flex justify-between border-b py-2">
-            <span className="font-Pop">Shipping:</span>
-            <span className="font-Pop">Free</span>
+          <div className="flex justify-between py-3 border-b border-gray-200 text-sm text-gray-700 font-['Poppins',sans-serif]">
+            <span>Shipping:</span>
+            <span className="font-medium text-gray-900">Free</span>
           </div>
 
-          <div className="flex justify-between py-2">
-            <span className="font-Pop">Total:</span>
-            <span className="font-Pop">$1750</span>
+          <div className="flex justify-between py-3 text-sm font-semibold text-gray-900 font-['Poppins',sans-serif]">
+            <span>Total:</span>
+            <span>${subtotal.toLocaleString()}</span>
           </div>
 
-          <button className="bg-red-500 text-white w-full py-2 mt-4 rounded font-Pop">
+          <button className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-3 rounded transition-colors font-['Poppins',sans-serif]">
             Proceed to checkout
           </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default Cart;
+}
