@@ -30,6 +30,7 @@ const Checkout = () => {
       <Container>
         <h4 className="font-pop text-sm font-normal pr-3 text-black/50">Account <span className="px-3">/</span>My Account <span className="px-3">/</span>Product <span className="px-3">/</span>View Cart <span className="px-3">/</span><span className="text-black pl-1.75">CheckOut</span></h4>
         <h2 className="font-inter font-medium text-4xl text-black pt-20 pb-12">Billing Details</h2>
+        
         <Flex className={`gap-x-43.25`}>
           <div className="w-5/12">
             <Checkoutform text={`First Name`} required={true} />
@@ -44,9 +45,9 @@ const Checkout = () => {
               <FaCheck className={`text-xl p-0.5 inline-block ${checked ? " text-xl border-2 border-black bg-white text-black" : "bg-primary text-white text-xl"}`} onClick={() => setchecked(!checked)} />
               <p className="text-black font-pop font-normal text-base text-center">Save this information for faster check-out next time</p>
             </Flex>
-
-
           </div>
+
+
           <div className="w-7/12">
             <Checkoutproduct src={Check_one} text="LCD Monitor" amount="$650" />
             <Checkoutproduct src={Check_two} text="H1 Gamepad" amount="$1100" />
@@ -56,14 +57,14 @@ const Checkout = () => {
               <Checkoutbilling text={`Total:`} amount={`$1750`} />
             </div>
             <div>
-              <Checkoutpayment payment={`Bank`} src_one={Bkash} src_two={Visa} src_three={Mastercard} src_four={Nagad}/>
-              <Checkoutpayment payment={`Cash On Delievery`}/>
+              <Checkoutpayment payment={`Bank`} src_one={Bkash} src_two={Visa} src_three={Mastercard} src_four={Nagad} />
+              <Checkoutpayment payment={`Cash On Delievery`} />
             </div>
             <div className="flex gap-x-4 ">
               <input type="text" className="border rounded-sm w-[300px] border-black placeholder:pl-6 font-pop font-normal text-base text-black/50" placeholder="Coupon Code" />
-            <Button  text={`Apply Coupon`}/>
+              <Button text={`Apply Coupon`} />
             </div>
-            <Button className={`mt-8`} text={`Place Order`}/>
+            <Button className={`mt-8`} text={`Place Order`} />
           </div>
         </Flex>
       </Container>
