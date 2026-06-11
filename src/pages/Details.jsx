@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { CiHeart } from 'react-icons/ci'
 import { FaStar } from 'react-icons/fa'
@@ -14,50 +13,36 @@ import Card from '../components/Card'
 import Container from '../components/Container'
 import Flex from '../components/Flex'
 import Image from '../components/Image'
-import ProductdetailsSize from '../components/ProductdetailsSize'
 import SubHeading from '../components/SubHeading'
 
 const Details = () => {
-   let [alldata,setAlldata]=useState([])
+  let [alldata, setAlldata] = useState([])
 
+  let params = useParams()
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/${params.id}`)
+      .then((res) => res.json())
+      .then((data) => setAlldata(data))
+  }, [])
 
-  let params=useParams()
-   useEffect(()=>{
-      fetch(`https://dummyjson.com/products/${params.id}`)
-      .then(res=>res.json())
-      .then(data=>setAlldata(data))
-  
-    },[])
-
-
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0 })
-    })
+  })
 
-    
-    
-  
-  
-
-  
- 
- 
-
-
-
+  const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
   return (
-    <section className='pb-35'>
+    <section className="pb-35">
       <Container>
         <ul className="flex gap-x-2 py-20">
           <li className="text-sm font-pop font-normal text-black/50 hover:text-black duration-300 cursor-pointer">
             Account <p className="inline-block px-3">/</p>
           </li>
           <li className="text-sm font-pop font-normal text-black/50 hover:text-black duration-300 cursor-pointer">
-            Gamming <p className="inline-block px-3">/</p>
+            {alldata.category} <p className="inline-block px-3">/</p>
           </li>
           <li className="text-sm font-pop font-normal text-black/50 hover:text-black duration-300 cursor-pointer">
-            Havic HV G-92 Gamepad
+            {alldata.title}
           </li>
         </ul>
 
@@ -134,18 +119,23 @@ const Details = () => {
             <Flex className="items-center gap-x-6 ">
               <p className="text-black text-xl font-normal font-inter">Size:</p>
               <Flex className="items-center gap-x-4 py-6 ">
-                <ProductdetailsSize text="XS" />
-                <ProductdetailsSize text="S" />
-                <ProductdetailsSize text="M" />
-                <ProductdetailsSize text="L" />
-                <ProductdetailsSize text="xL" />
+
+                {sizes.map((size) => (
+                  <div key={size} className="h-8 w-8 rounded border border-black/50 flex items-center justify-center cursor-pointer">
+                    <p className="font-medium font-pop text-black text-sm ">
+                      {size}
+                    </p>
+                  </div>
+                ))
+                }
+
+
               </Flex>
             </Flex>
 
             <Flex className="items-center justify-between">
               <div className="flex items-center border border-black/50 w-39.75 rounded">
-
-                <div className="flex justify-center items-center w-10 h-11 text-xl hover:bg-primary hover:text-white duration-300  cursor-pointer">
+                <div className="flex justify-center items-center w-10 h-11 text-xl   cursor-pointer">
                   -
                 </div>
 
@@ -153,57 +143,79 @@ const Details = () => {
                   2
                 </div>
 
-                <div className="flex justify-center items-center w-10 h-11 text-xl hover:bg-primary hover:text-white duration-300 cursor-pointer">
+                <div className="flex justify-center items-center w-10 h-11 text-xl cursor-pointer">
                   +
                 </div>
               </div>
 
               <div>
-                <Button className={`!py-2.5`} text="Buy Now"/>
+                <Button className={`py-2.5!`} text="Buy Now" />
               </div>
 
-              <div className='w-10 h-10 border border-black/50 rounded flex justify-center items-center'>
-              <CiHeart className='text-2xl'/>
+              <div className="w-10 h-10 border border-black/50 rounded flex justify-center items-center">
+                <CiHeart className="text-2xl" />
               </div>
-
-
             </Flex>
 
-
-              <div className='w-100 border border-black/50 rounded mt-10'>
+            <div className="w-100 border border-black/50 rounded mt-10">
               <Flex className="items-center gap-x-4 border-b border-black/50 pb-4 pt-6 px-4">
                 <div>
-                  <TbTruckDelivery className='text-4xl'/>
+                  <TbTruckDelivery className="text-4xl" />
                 </div>
                 <div>
-                  <h5 className='font-pop font-medium text-base text-black'>Free Delivery</h5>
-                  <p className='font-pop font-medium text-xs text-black pt-2 underline'>Enter your postal code for Delivery Availability</p>
+                  <h5 className="font-pop font-medium text-base text-black">
+                    Free Delivery
+                  </h5>
+                  <p className="font-pop font-medium text-xs text-black pt-2 underline">
+                    Enter your postal code for Delivery Availability
+                  </p>
                 </div>
               </Flex>
               <Flex className="items-center gap-x-4 pb-4 pt-6 px-4">
                 <div>
-                  <LuRefreshCcw className='text-4xl'/>
+                  <LuRefreshCcw className="text-4xl" />
                 </div>
                 <div>
-                  <h5 className='font-pop font-medium text-base text-black'>Return Delivery</h5>
-                  <p className='font-pop font-medium text-xs text-black pt-2'>Free 30 Days Delivery Returns. Details</p>
+                  <h5 className="font-pop font-medium text-base text-black">
+                    Return Delivery
+                  </h5>
+                  <p className="font-pop font-medium text-xs text-black pt-2">
+                    Free 30 Days Delivery Returns. Details
+                  </p>
                 </div>
               </Flex>
-              </div>
-
+            </div>
           </div>
         </Flex>
 
-        <SubHeading text="Related Item" className="pt-35 pb-15"/>
+        <SubHeading text="Related Item" className="pt-35 pb-15" />
 
         <Flex className="justify-between">
-
-          <Card image={Product1} title="HAVIT HV-G92 Gamepad" regularprice="160" saleprice="100"/>
-          <Card image={Product2} title="HAVIT HV-G92 Gamepad" regularprice="160" saleprice="100"/>
-          <Card image={Product3} title="HAVIT HV-G92 Gamepad" regularprice="160" saleprice="100"/>
-          <Card image={Product4} title="HAVIT HV-G92 Gamepad" regularprice="160" saleprice="100"/>
+          <Card
+            image={Product1}
+            title="HAVIT HV-G92 Gamepad"
+            regularprice="160"
+            saleprice="100"
+          />
+          <Card
+            image={Product2}
+            title="HAVIT HV-G92 Gamepad"
+            regularprice="160"
+            saleprice="100"
+          />
+          <Card
+            image={Product3}
+            title="HAVIT HV-G92 Gamepad"
+            regularprice="160"
+            saleprice="100"
+          />
+          <Card
+            image={Product4}
+            title="HAVIT HV-G92 Gamepad"
+            regularprice="160"
+            saleprice="100"
+          />
         </Flex>
-
       </Container>
     </section>
   )

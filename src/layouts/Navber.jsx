@@ -20,11 +20,11 @@ console.log(input.length);
 
   let handleInput=(e)=>{
     setInput(e.target.value);
-    
+
     let search=alldata.filter(item=>item.title.toLowerCase().includes(e.target.value.toLowerCase()))
-    
+
     setSearch(search);
-    
+
   }
 
   useEffect(()=>{
@@ -50,15 +50,15 @@ console.log(input.length);
                   <Link to="/about"> <ListItem text="About"/> </Link>
                   <Link to="/signup"> <ListItem text="Sign Up"/> </Link>
                   <Link to="/login"> <ListItem text="Login"/> </Link>
-                 
-                   
-                   
-                   
+
+
+
+
                 </ul>
-                    
+
                     </div>
                 <div className='relative w-4/12 flex justify-between items-center pl-10'>
-                   <div className='relative w-[243px] bg-[#F5F5F5]'>
+                   <div className='relative w-60.75 bg-offwhitedark'>
                        <input onChange={handleInput} className='w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]' type="text" placeholder='What are you looking for?'/>
                        <FiSearch className='absolute top-1/2 -translate-y-1/2 right-4'/>
                    </div>
@@ -66,12 +66,14 @@ console.log(input.length);
 
 
                    {
-                    input.length && 
+                    input.length &&
                     search.length &&
-                    <div className=' absolute top-[45px] z-50 rounded left-0 w-full py-10 bg-[#F5F5F5] py-5 px-10'>
+                    <div className=' absolute top-11.25 z-50 rounded left-0 w-full py-5 bg-white  px-10'>
                        {
                         search.map(item=>(
-                         <Link to={`/productdetails/${item.id}`}> <li className='py-2'>{item.title}</li></Link>
+                        <ul>
+                          <Link to={`/productdetails/${item.id}`}> <li className='py-2 font-pop font-semibold text-base text black'>{item.title}</li></Link>
+                        </ul>
                         ))
                        }
                    </div>

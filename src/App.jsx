@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
-// import Checkout from "./pages/Checkout";
+import Checkout from "./pages/Checkout";
 import Details from "./pages/Details";
 import Wishlist from "./pages/Wishlist";
 import Error from "./pages/Error";
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
         <Route path="wishlist" element={<Wishlist />}></Route>
         <Route path="*" element={<Error />}></Route>
     </Route>
-      
+
     </>
   )
 );
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <>
     <RouterProvider router={router} />
-    
+
     </>
   )
 }

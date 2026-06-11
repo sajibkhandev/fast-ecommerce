@@ -4,9 +4,9 @@ import Container from "../components/Container"
 import Flex from "../components/Flex"
 import { FaCheck } from "react-icons/fa"
 import Image from "../components/Image"
-import check_one from "../assets/checkout1.png"
-import check_two from "../assets/checkout2.png"
-import bkash from "../assets/bkash.png"
+import Check_one from "../assets/checkout1.png"
+import Check_two from "../assets/checkout2.png"
+import Bkash from "../assets/bkash.png"
 import Nagad from "../assets/Nagad.png"
 import Visa from "../assets/Visa.png"
 import Mastercard from "../assets/Mastercard.png"
@@ -28,9 +28,9 @@ const Checkout = () => {
   return (
     <section className="pt-20 pb-35">
       <Container>
-        <h4 className="font-pop text-sm font-normal pr-3 text-black/50">Account <span className="px-3">/</span>My Account <span className="px-3">/</span>Product <span className="px-3">/</span>View Cart <span className="px-3">/</span><span className="text-black pl-[7px]">CheckOut</span></h4>
+        <h4 className="font-pop text-sm font-normal pr-3 text-black/50">Account <span className="px-3">/</span>My Account <span className="px-3">/</span>Product <span className="px-3">/</span>View Cart <span className="px-3">/</span><span className="text-black pl-1.75">CheckOut</span></h4>
         <h2 className="font-inter font-medium text-4xl text-black pt-20 pb-12">Billing Details</h2>
-        <Flex className={`gap-x-[173px]`}>
+        <Flex className={`gap-x-43.25`}>
           <div className="w-5/12">
             <Checkoutform text={`First Name`} required={true} />
             <Checkoutform text={`Company Name`} required={false} />
@@ -48,15 +48,15 @@ const Checkout = () => {
 
           </div>
           <div className="w-7/12">
-            <Checkoutproduct src={check_one} text="LCD Monitor" amount="$650" />
-            <Checkoutproduct src={check_two} text="H1 Gamepad" amount="$1100" />
+            <Checkoutproduct src={Check_one} text="LCD Monitor" amount="$650" />
+            <Checkoutproduct src={Check_two} text="H1 Gamepad" amount="$1100" />
             <div className="pb-8">
               <Checkoutbilling text={`Subtotal:`} amount={`$1750`} />
               <Checkoutbilling className={`mt-4 mb-4`} text={`Shipping:`} amount={`Free`} />
               <Checkoutbilling text={`Total:`} amount={`$1750`} />
             </div>
             <div>
-              <Checkoutpayment payment={`Bank`} src_one={bkash} src_two={Visa} src_three={Mastercard} src_four={Nagad}/>
+              <Checkoutpayment payment={`Bank`} src_one={Bkash} src_two={Visa} src_three={Mastercard} src_four={Nagad}/>
               <Checkoutpayment payment={`Cash On Delievery`}/>
             </div>
             <div className="flex gap-x-4 ">
