@@ -68,11 +68,16 @@ console.log(input.length);
                    {
                     input.length &&
                     search.length &&
-                    <div className=' absolute top-11.25 z-50 rounded left-0 w-full py-5 bg-white  px-10'>
+                    <div className={`absolute top-11.25 z-50 rounded-xl left-0 w-full py-5 bg-gradient-to-r from-black/50 to-black bg- px-10`}>
                        {
                         search.map(item=>(
                         <ul>
-                          <Link to={`/productdetails/${item.id}`}> <li className='py-2 font-pop font-semibold text-base text black'>{item.title}</li></Link>
+                          <Link to={`/productdetails/${item.id}`}
+                          onClick={()=>{
+                            setInput([])
+                            setSearch([])
+                          }}
+                          > <li className='py-2 font-pop font-semibold text-base text-white'>{item.title}</li></Link>
                         </ul>
                         ))
                        }
