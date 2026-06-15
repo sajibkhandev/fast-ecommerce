@@ -66,8 +66,8 @@ console.log(input.length);
 
 
                    {
-                    input.length &&
-                    search.length &&
+                    input.length > 0 &&
+                    search.length > 0 &&
                     <div className={`absolute top-11.25 z-50 rounded-xl left-0 w-full py-5 bg-gradient-to-r from-black/50 to-black bg- px-10`}>
                        {
                         search.map(item=>(

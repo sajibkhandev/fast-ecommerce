@@ -1,9 +1,26 @@
-
+import Container from "../components/Container"
+import Flex from "../components/Flex"
+import Pagination from "../components/Pagination"
 const Products = () => {
   return (
-    <div>
-        <h1 className='text-5xl py-10'>This is Product page</h1>
-    </div>
+    <section className="py-20">
+      <Container>
+        <Flex>
+          <div className="w-3/12"> 
+          Shop by Category
+          </div>
+
+
+
+          <div className="w-9/12">
+          
+             <Pagination itemsPerPage={9} />
+
+          
+          </div>
+        </Flex>
+      </Container>
+    </section>
   )
 }
 
