@@ -59,7 +59,8 @@ console.log(input.length);
                     </div>
                 <div className='relative w-4/12 flex justify-between items-center pl-10'>
                    <div className='relative w-60.75 bg-offwhitedark'>
-                       <input onChange={handleInput} className='w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]' type="text" placeholder='What are you looking for?'/>
+                       <input onChange={handleInput}
+                        className='w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]' type="text" placeholder='What are you looking for?'/>
                        <FiSearch className='absolute top-1/2 -translate-y-1/2 right-4'/>
                    </div>
                 {/* Serceah bar */}
@@ -68,7 +69,7 @@ console.log(input.length);
                    {
                     input.length > 0 &&
                     search.length > 0 &&
-                    <div className={`absolute top-11.25 z-50 rounded-xl left-0 w-full py-5 bg-gradient-to-r from-black/50 to-black bg- px-10`}>
+                    <div className={`absolute top-11.25 z-50 rounded-xl left-0 w-full py-5 bg-linear-to-r from-black/50 to-black bg- px-10`}>
                        {
                         search.map(item=>(
                         <ul>
@@ -76,6 +77,7 @@ console.log(input.length);
                           onClick={()=>{
                             setInput([])
                             setSearch([])
+
                           }}
                           > <li className='py-2 font-pop font-semibold text-base text-white'>{item.title}</li></Link>
                         </ul>
