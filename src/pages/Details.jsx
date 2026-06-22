@@ -23,7 +23,7 @@ const Details = () => {
     fetch(`https://dummyjson.com/products/${params.id}`)
       .then((res) => res.json())
       .then((data) => setAlldata(data))
-  }, [alldata])
+  }, [params.id])
 
   useEffect(() => {
     window.scrollTo({ top: 0 })

@@ -3,8 +3,24 @@ import { IoIosHeartEmpty } from 'react-icons/io'
 import { IoEyeOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import Image from '../components/Image'
+import { useDispatch } from 'react-redux'
+import { addtocart } from '../slices/addtocartSlice'
 
 const Card = ({id,image,title,regularprice,saleprice ,className}) => {
+   let dispatch=useDispatch()
+
+  let handleAddToCart=()=>{
+    dispatch(addtocart(
+      {
+        title:title,
+        src:image,
+        price:saleprice,
+        quantity:1
+
+      }
+  ))
+    
+  }
   return (
      <div className='w-67.5 h-87.5 '>
           <div className='relative overflow-hidden group w-full h-62.5 bg-offwhitedark flex justify-center items-center'>
@@ -24,7 +40,7 @@ const Card = ({id,image,title,regularprice,saleprice ,className}) => {
 
 
             </div>
-            <div className='absolute -bottom-2/12 left-0 bg-black w-full group-hover:bottom-0 duration-300'>
+            <div onClick={handleAddToCart} className='absolute -bottom-2/12 left-0 cursor-pointer bg-black w-full group-hover:bottom-0 duration-300'>
                 <p className='py-2 text-white text-center text-base font-medium font-pop'>Add To Cart</p>
               </div>
 
