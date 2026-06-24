@@ -33,7 +33,7 @@ const FlashSale = () => {
           {
             alldata.slice(0,show).map((item,index)=>(
               
-              <Card id={item.id} title={item.title} image={item.thumbnail} regularprice={item.regularprice} saleprice={item.saleprice}/> 
+              <Card id={item.id} title={item.title} image={item.thumbnail} regularprice={item.regularprice} saleprice={item.price}/> 
 
             ))
           }

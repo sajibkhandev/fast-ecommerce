@@ -41,7 +41,7 @@ const ExploreOurProducts = () => {
               alldata.slice(8,show).map((item,index)=>(
                 
 
-                <Card id={item.id} title={item.title} image={item.thumbnail} regularprice="300"saleprice="200"/>
+                <Card id={item.id} title={item.title} image={item.thumbnail} regularprice="300"saleprice={item.price}/>
                 
               ))
             }

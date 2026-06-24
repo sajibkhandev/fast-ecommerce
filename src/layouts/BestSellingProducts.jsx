@@ -37,7 +37,7 @@ const BestSellingProducts = () => {
               title={item.title}
               image={item.thumbnail}
               regularprice="300"
-              saleprice="200"
+              saleprice={item.price}
             />
           ))}
         </Flex>
