@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
@@ -12,14 +12,42 @@ import ListItem from "../components/ListItem";
 import { useSelector } from "react-redux";
 
 const Navber = () => {
+
+  const [showSearch, setShowSearch] = useState(false);
+  const searchRef = useRef (null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target)
+      ) {
+        setShowSearch(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
+  }, []);
+
+
+
+
+
   let [alldata, setAllData] = useState([]);
   let [search, setSearch] = useState([]);
   let [input, setInput] = useState("");
   let [open, setOpen] = useState(false);
 
   let data=useSelector(state=>state.cart.value)
-  
-  
+
+
 
   // console.log(input.length);
 
@@ -73,9 +101,16 @@ const Navber = () => {
               </Link>
             </ul>
           </div>
-          <div className="w-4/12 relative  flex justify-between items-center pl-10">
+
+
+
+
+
+          <div ref={searchRef} className="w-4/12 relative  flex justify-between items-center pl-10">
             <div className="relative w-60.75 bg-offwhitedark">
               <input
+                onFocus={()=>setShowSearch(true)}
+                value={input}
                 onChange={handleInput}
                 className="w-full py-1 pl-5 pr-9 placeholder:text-xs placeholder:text-[#00000080]"
                 type="text"
@@ -85,8 +120,9 @@ const Navber = () => {
             </div>
             {/* Serceah bar */}
 
-            {input.length > 0 && search.length > 0 && (
+            {input.length > 0 && search.length > 0 && showSearch && (
               <div
+
                 className={`absolute top-11.25 z-50 rounded-xl left-0 w-full py-5 bg-linear-to-r from-black/50 to-black bg- px-10`}
               >
                 {search.map((item) => (
@@ -94,7 +130,7 @@ const Navber = () => {
                     <Link
                       to={`/productdetails/${item.id}`}
                       onClick={() => {
-                        setInput([]);
+                        setInput(item.title);
                         setSearch([]);
                       }}
                     >
@@ -107,6 +143,8 @@ const Navber = () => {
                 ))}
               </div>
             )}
+
+
 
             <Flex className="gap-x-5">
               <IoIosHeartEmpty className="text-2xl" />
@@ -138,12 +176,12 @@ const Navber = () => {
                   <li>{item.price}$</li>
                   <li>50</li>
                 </ul>
-               
+
 
                   ))
                 }
-                
-               
+
+
 
                 <div className=" mt-5 p-3 text-right">
                   <h2 className="text-3xl">Total: 500</h2>

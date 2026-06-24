@@ -1,13 +1,96 @@
+import { Link } from 'react-router-dom'
+import Container from '../components/Container'
+import ListItem from '../components/ListItem'
+import Flex from '../components/Flex'
+import { MdOutlineEmail } from 'react-icons/md'
+import Input from '../components/Input'
+import { HiOutlinePhone } from 'react-icons/hi'
+import Button from '../components/Button'
+
 
 const Contact = () => {
   return (
-     <div>
-        
-        <h1 className='py-20'>Contact page</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit recusandae inventore, sequi quisquam aliquid eos. Quidem deserunt natus unde voluptas facere totam atque labore optio mollitia, eum ex qui nihil, est exercitationem similique libero dolores nam porro molestias ab, in magni? Tempora nisi ullam perferendis reiciendis facere molestias deleniti tempore saepe maxime, necessitatibus placeat dolorum qui esse optio ad ab quidem expedita autem quia? Dignissimos nam architecto ipsa sunt numquam laborum quos incidunt quam repellat atque ullam molestiae aliquam voluptatem natus at aspernatur maxime optio, ducimus ipsam! Doloremque magnam ea libero amet dolore officia! Eum, fugiat, atque architecto in sit laboriosam delectus facere vitae perferendis repellendus possimus ullam et accusamus hic nam! Magni ex aliquam ipsa, reprehenderit fugit corrupti at cupiditate iusto eaque, dolor delectus natus perspiciatis porro vitae ipsam laboriosam. Consectetur excepturi quod delectus quas praesentium vero deserunt tempora doloribus eum. Consequuntur esse dolore magnam quam reprehenderit impedit veritatis aperiam laudantium excepturi, ad corporis nobis nesciunt quo illo, minima ipsam voluptatibus temporibus saepe eum ex. Voluptates, iusto quia atque totam doloremque consectetur quos facilis commodi, quaerat recusandae id, magnam corporis ut eligendi vel. Nemo ipsam officia error aliquam provident aspernatur aperiam, fuga blanditiis mollitia vero tempore ea libero cumque.
-        </p>
-        
-    </div>
+     <section className="py-30">
+        <Container>
+          <div>
+            <ul className="flex gap-x-2">
+              <Link to="/">
+                <ListItem text="Home" />
+              </Link>
+              /
+              <ListItem text="Contact" />
+            </ul>
+          </div>
+          <Flex className="mt-20 items-center">
+            <div className="w-4/12  ">
+              <div className="w-[320px] shadow-2xl py-10 px-8">
+                <div className="flex items-center gap-x-3">
+                  <div className="bg-red-600 p-1 rounded-full">
+                    <HiOutlinePhone className="text-white text-base" />
+                  </div>
+                  <h4 className="text-base font-pop font-medium text-black">
+                    Call To Us
+                  </h4>
+                </div>
+
+                <p className="font-pop font-normal text-sm text-black pt-6 pb-4">
+                  We are available 24/7, 7 days a week.
+                </p>
+                <p className="font-pop font-normal text-sm text-black  pb-8 border-b border-[#00000070]">
+                  Phone: +8801611112222
+                </p>
+
+                <div className="flex items-center gap-x-3 mb-6 mt-8">
+                  <div className="bg-red-600 p-1 rounded-full">
+                    <MdOutlineEmail className="text-base text-white" />
+                  </div>
+                  <h4 className="text-base font-pop font-medium text-black">
+                    Write To Us
+                  </h4>
+                </div>
+
+                <p className="font-pop font-normal text-sm text-black">
+                  Fill out our form and we will contact you within 24 hours.
+                </p>
+                <p className="font-pop font-normal text-sm text-black  py-4">
+                  Emails: customer@exclusive.com
+                </p>
+                <p className="font-pop font-normal text-sm text-black">
+                  Emails: support@exclusive.com
+                </p>
+              </div>
+            </div>
+
+            <div className="w-8/12">
+              <div className="shadow-2xl px-8 py-10">
+                <div className='flex gap-x-4'>
+                  <Input
+                  type="text"
+                  placeholder="Your Name"
+                  className="w-56.75 bg-offwhitedark outline-none rounded"
+                />
+
+                <Input
+                  type="email"
+                  placeholder="Your Email"
+                  className="w-56.75 bg-offwhitedark outline-none rounded"
+                />
+
+                <Input
+                  type="text"
+                  placeholder="Your Phone"
+                  className="w-56.75 bg-offwhitedark outline-none rounded"
+                />
+                </div>
+                <textarea placeholder='Your Massage' className='bg-offwhitedark mt-8 w-full h-45 rounded p-2 outline-none'></textarea>
+                <div className='text-end mt-8'>
+                  <Button text="Send Massage"/>
+                </div>
+              </div>
+            </div>
+          </Flex>
+        </Container>
+      </section>
   )
 }
 

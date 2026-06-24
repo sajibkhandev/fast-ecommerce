@@ -2,7 +2,7 @@ import Container from "../components/Container"
 import Flex from "../components/Flex"
 import Image from "../components/Image"
 import RootLayout from "../layouts/RootLayout"
-import loginImg from "../assets/login page.png"
+import loginImg from "../assets/loginImage.png"
 import Heading from "../components/Heading"
 import Button from "../components/Button"
 import { useForm } from "react-hook-form";
@@ -56,7 +56,7 @@ const Login = () => {
               )}
 </div>
 <div>
-  <input type="password" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Password" 
+  <input type="password" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Password"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -64,7 +64,7 @@ const Login = () => {
                     message:
                       "Password must be at least 6 characters",
                   },
-                })}/> 
+                })}/>
                    {errors.password && (
                 <p className="text-red-500 text-sm mt-2">
                   {errors.password.message}
