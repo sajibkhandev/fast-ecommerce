@@ -9,6 +9,7 @@ import Container from "../components/Container";
 import Flex from "../components/Flex";
 import Image from "../components/Image";
 import ListItem from "../components/ListItem";
+import Button from '../components/Button'
 import { useDispatch, useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
 import { decrement, increment, removeitem } from "../slices/addtocartSlice";
@@ -160,7 +161,7 @@ let handleRemove=(item)=>{
               <IoIosHeartEmpty className="text-2xl" />
               <IoCartOutline
                 onClick={() => setOpen(!open)}
-                className="text-2xl"
+                className="text-2xl cursor-pointer"
               />
             </Flex>
             {open && (
@@ -186,29 +187,41 @@ let handleRemove=(item)=>{
 
                     <li>{item.title.substring(0, 12)}</li>
                     <li>
-                      <Image className="w-[40px]" src={item.src} />
+                      <Image className="w-10" src={item.src} />
                     </li>
                     <li className="border border-black/60 py-0.5 px-2 rounded  flex gap-x-2">
                       <button onClick={()=>handleDecrement(item)}>-</button>
                       <button>{item.quantity}</button>
                       <button onClick={()=>handleIncrement(item)}>+</button>
                     </li>
-                    <li>{item.price}$</li>
-                    <li>{item.quantity*item.price}$</li>
+                    <li>{item.price.toFixed(2)}$</li>
+                    <li>{(item.quantity*item.price).toFixed(2)}$</li>
                   </ul>
                 ))}
 
-               
+
                {
                 data.length>0 ?
-                <div className=" mt-5 p-3 text-right">
+                <div>
+                  <div className=" mt-5 p-3 text-right">
                   <h2 className="text-3xl">Total: {Math.floor(total)}$</h2>
                 </div>
+                <div className="flex justify-evenly">
+                  <Link to="/checkout/">
+                  <Button text="Checkout"/>
+                  </Link>
+                  <Link to="/cart/">
+                  <Button text="Cart"/>
+                  </Link>
+                </div>
+                </div>
+
+
                 :
                   <div className=" mt-5 pt-10 text-center">
                   <h2 className="text-3xl">Cart Empty</h2>
                 </div>
-                
+
 
                }
               </div>

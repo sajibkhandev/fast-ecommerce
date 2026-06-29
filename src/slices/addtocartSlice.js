@@ -12,7 +12,7 @@ export const addtocartSlice = createSlice({
      item.quantity+=1
    }else{
     state.value.push({...action.payload,quantity:1})
-   } 
+   }
     },
     increment:(state,action)=>{
       // console.log(state.value);
@@ -20,21 +20,24 @@ export const addtocartSlice = createSlice({
       state.value.map(item=>{
         if(item.title==action.payload.title){
          item.quantity+=1
-         
+
         }
       })
-      
-      
+
+
     },
     decrement:(state,action)=>{
-      state.value.map(item=>{
+      state.value.map((item,index)=>{
         if(item.title==action.payload.title){
          item.quantity-=1
-         
+         if(item.quantity<1){
+          state.value.splice(index,1)
+         }
+
         }
       })
-      
-      
+
+
     },
     removeitem:(state,action)=>{
       state.value.map((item,index)=>{
@@ -42,7 +45,7 @@ export const addtocartSlice = createSlice({
           state.value.splice(index,1)
         }
       })
-      
+
     }
   },
 })
