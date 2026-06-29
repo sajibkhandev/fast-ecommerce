@@ -11,6 +11,7 @@ import NewArrival from '../layouts/NewArrival'
 import Customer from '../layouts/Customer'
 
 const Home = () => {
+
   return (
     <div>
       
