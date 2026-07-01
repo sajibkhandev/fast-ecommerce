@@ -140,7 +140,7 @@ export default function Cart() {
 
           <Link to="/checkout">
           <button className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-3 rounded transition-colors font-['Poppins',sans-serif]">
-            Proceed to checkout
+            Proceed to Checkout
           </button>
           </Link>
         </div>
