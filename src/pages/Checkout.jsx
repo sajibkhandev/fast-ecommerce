@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import { useState } from "react";
+
 import Checkoutform from "../components/checkoutform";
 import Container from "../components/Container";
 import Flex from "../components/Flex";
@@ -17,9 +16,7 @@ import Checkoutproduct from "../components/Checkoutproduct";
 import Checkoutbilling from "../components/Checkoutbilling";
 import Checkoutpayment from "../components/Checkoutpayment";
 
-const Checkout = () => {
-  let [checked, setchecked] = useState(true);
-=======
+
 import React, { useEffect, useState } from 'react'
 import Container from '../components/Container'
 import { Link, useParams } from 'react-router-dom'
@@ -35,6 +32,9 @@ import { useSelector } from 'react-redux'
 
 const Checkout = () => {
 
+  let [checked, setchecked] = useState(true);
+
+  let data = useSelector((state)=>state.cart.value)
 
   let [subTotal,setSubTotal] = useState("")
 
@@ -50,7 +50,6 @@ const Checkout = () => {
     'Email Address',
   ]
 
-  let data = useSelector((state)=>state.cart.value)
 
 
   useEffect(()=>{
@@ -61,12 +60,12 @@ const Checkout = () => {
     setSubTotal(subTotal)
   },[])
 
->>>>>>> 1152e9f6587d0dc9e385b6ea37dcbbe6f72d2d33
+
 
   return (
     <section className="pb-35">
       <Container>
-<<<<<<< HEAD
+
         <h4 className="font-pop text-sm font-normal pr-3 text-black/50">
           Account <span className="px-3">/</span>My Account{" "}
           <span className="px-3">/</span>Product <span className="px-3">/</span>
@@ -176,7 +175,7 @@ const Checkout = () => {
                 placeholder="Coupon Code"
               />
               <Button text={`Apply Coupon`} />
-=======
+
         <div className="py-20">
           <ul className="flex flex-wrap gap-2">
             <Link to="/">
@@ -249,7 +248,7 @@ const Checkout = () => {
                 data.length < 1 ? 0 : <p className="text-base text-black font-pop font-normal">5$</p>
 
               }
->>>>>>> 1152e9f6587d0dc9e385b6ea37dcbbe6f72d2d33
+
             </div>
 
             <div className="flex items-center justify-between  pt-4">
@@ -291,5 +290,6 @@ const Checkout = () => {
     </section>
   );
 };
+}
 
-export default Checkout;
+

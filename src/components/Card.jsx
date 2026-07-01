@@ -1,12 +1,14 @@
 import { FaStar } from 'react-icons/fa'
-import { IoIosHeartEmpty } from 'react-icons/io'
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io'
 import { IoEyeOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import Image from '../components/Image'
 import { useDispatch } from 'react-redux'
 import { addtocart } from '../slices/addtocartSlice'
+import { useState } from 'react'
 
 const Card = ({id,image,title,regularprice,saleprice ,className}) => {
+  let [heart,setHeart]=useState(false)
    let dispatch=useDispatch()
 
   let handleAddToCart=()=>{
@@ -30,9 +32,24 @@ const Card = ({id,image,title,regularprice,saleprice ,className}) => {
             <div className='absolute top-3 left-3'>
               <p className='py-1 px-3 bg-primary rounded text-offwhitedark text-xs font-pop font-normal'>-40%</p>
             </div>
-            <div className={`flex justify-center items-center absolute top-3 right-3 w-8.5 h-8.5 bg-white rounded-full ${className}`}>
-              <IoIosHeartEmpty className='text-xl' />
+
+            {
+              heart 
+              ?
+              <div className={`flex justify-center items-center absolute top-3 right-3 w-8.5 h-8.5 bg-white rounded-full ${className}`}>
+              <IoIosHeart onClick={()=>setHeart(!heart)} className='text-xl text-primary' />
             </div>
+            
+               :
+               <div className={`flex justify-center items-center absolute top-3 right-3 w-8.5 h-8.5 bg-white rounded-full ${className}`}>
+              <IoIosHeartEmpty onClick={()=>setHeart(!heart)} className='text-xl' />
+            </div>
+            
+            }
+            
+
+
+
             <div className='flex justify-center items-center absolute top-14 right-3 w-8.5 h-8.5 bg-white rounded-full'>
               <IoEyeOutline className='text-xl' />
 

@@ -6,19 +6,21 @@ import { MdOutlineEmail } from 'react-icons/md'
 import Input from '../components/Input'
 import { HiOutlinePhone } from 'react-icons/hi'
 import Button from '../components/Button'
+import { useSelector } from 'react-redux'
 
 
 const Contact = () => {
+  let data=useSelector(state=>state.breadcrumb.previousvalue)
+  let data2=useSelector(state=>state.breadcrumb.daybeforeyesterday)
+
   return (
      <section className="py-30">
         <Container>
           <div>
             <ul className="flex gap-x-2">
-              <Link to="/">
-                <ListItem text="Home" />
-              </Link>
-              /
-              <ListItem text="Contact" />
+              <Link to={`${data2=="Home"? "/":`/${data2}`}`}> <ListItem text={data2} /></Link>
+             / <Link to={`${data=="Home"? "/":`/${data}`}`}><ListItem text={data} /></Link> 
+             / <ListItem text="Contact" />
             </ul>
           </div>
           <Flex className="mt-20 items-center">

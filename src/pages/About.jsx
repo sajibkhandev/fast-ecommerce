@@ -17,8 +17,10 @@ import { TbCircleDotFilled, TbTruckDelivery } from 'react-icons/tb'
 import { LuHeadset } from 'react-icons/lu'
 import { CiBookmarkCheck } from 'react-icons/ci'
 import CustomerService from '../components/CustomerService'
+import { useSelector } from 'react-redux'
 
 const About = () => {
+   let data=useSelector(state=>state.breadcrumb.previousvalue)
 
 
   return (
@@ -26,11 +28,7 @@ const About = () => {
         <Container>
           <div>
             <ul className="flex gap-x-2">
-              <Link to="/">
-                <ListItem text="Home" />
-              </Link>
-              /
-              <ListItem text="About" />
+               <Link to={`${data=="Home"? "/":`/${data}`}`}><ListItem text={data} /></Link> / <ListItem text="about" />
             </ul>
           </div>
 
