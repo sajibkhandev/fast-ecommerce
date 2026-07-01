@@ -36,8 +36,10 @@ const Navber = () => {
   let [alldata, setAllData] = useState([]);
   let [search, setSearch] = useState([]);
   let [input, setInput] = useState("");
-  let [open, setOpen] = useState(false);
   let [total, setTotal] = useState('');
+
+
+  let [open, setOpen] = useState(false);
 
   let data = useSelector((state) => state.cart.value);
 
@@ -207,10 +209,11 @@ let handleRemove=(item)=>{
                   <h2 className="text-3xl">Total: {Math.floor(total)}$</h2>
                 </div>
                 <div className="flex justify-evenly">
-                  <Link to="/checkout/">
+                  <Link to="/checkout/" onClick={()=>setOpen(!open)}>
+
                   <Button text="Checkout"/>
                   </Link>
-                  <Link to="/cart/">
+                  <Link to="/cart/" onClick={()=>setOpen(!open)}>
                   <Button text="Cart"/>
                   </Link>
                 </div>
