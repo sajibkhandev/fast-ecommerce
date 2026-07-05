@@ -9,7 +9,6 @@ import FlashSale from '../layouts/FlashSale'
 
 import NewArrival from '../layouts/NewArrival'
 import Customer from '../layouts/Customer'
-
 const Home = () => {
 
   return (
@@ -24,9 +23,9 @@ const Home = () => {
        <ExploreOurProducts/>
        <NewArrival/>
        <Customer/>
-       
     </div>
   )
 }
+      
 
 export default Home
