@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../components/Container'
 import Flex from '../components/Flex'
 import Input from '../components/Input'
@@ -9,6 +9,40 @@ import SignUpBanner from '../assets/LoginImage.png'
 
 
 const Signup = () => {
+  let [name,setName]=useState("")
+  let [email,setEmail]=useState("")
+  let [password,setPassword]=useState("")
+  let [nameError,setNameError]=useState("")
+  let [emailError,setEmailError]=useState("")
+  let [passwordError,setPasswordError]=useState("")
+  let handleName=(e)=>{
+    setName(e.target.value);
+    setNameError("")
+  }
+  
+  let handleEmail=(e)=>{
+    setEmail(e.target.value);
+    setEmailError("")
+  }
+  
+  let handlePassword=(e)=>{
+    setPassword(e.target.value);
+    setPasswordError("")
+  }
+  let handleCreateAccount=()=>{
+    if(!name){
+      setNameError("Enter your name");
+      
+    }if(!email){
+      setEmailError("Enter Your Email")
+    }if(!password){
+      setPasswordError("Enter Your password")
+    }
+  
+    
+  }
+  
+  
 
   return (
     <section className='py-30'>
@@ -25,12 +59,23 @@ const Signup = () => {
             <p className='font-normal font-pop text-base text-black pt-6'>Enter your details below</p>
 
 
-            <Input type="text" placeholder="Name" className="w-full outline-none border-b border-[#00000066] mt-10"/>
-            <Input type="text" placeholder="Email or Phone Number" className="w-full outline-none border-b border-[#00000066] mt-10"/>
-            <Input type="password" placeholder="Password" className="w-full outline-none border-b border-[#00000066] mt-10"/>
+            <Input onChange={handleName} type="text" placeholder="Name" className="w-full outline-none border-b border-[#00000066] mt-10"/>
+           {
+            nameError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{nameError}</p>
+           }
+            <Input onChange={handleEmail} type="text" placeholder="Email or Phone Number" className="w-full outline-none border-b border-[#00000066] mt-10"/>
+            {
+            emailError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{emailError}</p>
+           }
+            <Input onChange={handlePassword} type="password" placeholder="Password" className="w-full outline-none border-b border-[#00000066] mt-10"/>
+            {
+            passwordError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{passwordError}</p>
+           }
 
-            <div className='mt-10 '>
-              <Button text="Create Account" className="w-full"/>
+            <div  className='mt-10 '>
+              <div onClick={handleCreateAccount}>
+                <Button  text="Create Account" className="w-full"/>
+              </div>
 
               <div className='border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3'>
                 <FcGoogle className='text-2xl'/>
