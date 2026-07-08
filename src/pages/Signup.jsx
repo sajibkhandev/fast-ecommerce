@@ -1,94 +1,180 @@
-import React, { useState } from 'react'
-import Container from '../components/Container'
-import Flex from '../components/Flex'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import { FcGoogle } from 'react-icons/fc'
-import Image from '../components/Image'
-import SignUpBanner from '../assets/LoginImage.png'
-
+import React, { useState } from "react";
+import Container from "../components/Container";
+import Flex from "../components/Flex";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import { FcGoogle } from "react-icons/fc";
+import Image from "../components/Image";
+import SignUpBanner from "../assets/LoginImage.png";
+import { ToastContainer, toast } from "react-toastify";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
-  let [name,setName]=useState("")
-  let [email,setEmail]=useState("")
-  let [password,setPassword]=useState("")
-  let [nameError,setNameError]=useState("")
-  let [emailError,setEmailError]=useState("")
-  let [passwordError,setPasswordError]=useState("")
-  let handleName=(e)=>{
+  const auth = getAuth();
+  let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let lowercase = /(?=.*[a-z])/;
+  let uppercase = /(?=.*[A-Z])/;
+  let digit = /(?=.*\d)/;
+  let special = /(?=.*[@$!%*?&])/;
+  let minnumber = /[A-Za-z\d@$!%*?&]{6,}$/;
+
+  let [name, setName] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [nameError, setNameError] = useState("");
+  let [emailError, setEmailError] = useState("");
+  let [passwordError, setPasswordError] = useState("");
+  let handleName = (e) => {
     setName(e.target.value);
-    setNameError("")
-  }
-  
-  let handleEmail=(e)=>{
+    setNameError("");
+  };
+
+  let handleEmail = (e) => {
     setEmail(e.target.value);
-    setEmailError("")
-  }
-  
-  let handlePassword=(e)=>{
+    setEmailError("");
+  };
+
+  let handlePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordError("")
-  }
-  let handleCreateAccount=()=>{
-    if(!name){
+    setPasswordError("");
+  };
+
+  let handleCreateAccount = () => {
+    if (!name) {
       setNameError("Enter your name");
-      
-    }if(!email){
-      setEmailError("Enter Your Email")
-    }if(!password){
-      setPasswordError("Enter Your password")
     }
-  
-    
-  }
-  
-  
+    if (!email) {
+      setEmailError("Enter Your Email");
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Enter Valid Email");
+    }
+    if (!password) {
+      setPasswordError("Enter Your password");
+    } else if (!lowercase.test(password)) {
+      setPasswordError("Lowercase Must");
+    } else if (!uppercase.test(password)) {
+      setPasswordError("Uppercase Must");
+    } else if (!digit.test(password)) {
+      setPasswordError("Digit Must");
+    } else if (!special.test(password)) {
+      setPasswordError("Special Must");
+    } else if (!minnumber.test(password)) {
+      setPasswordError("Minimum 6 digit");
+    }
+
+    if (
+      name &&
+      email &&
+      password &&
+      emailRegex.test(email) &&
+      lowercase.test(password) &&
+      uppercase.test(password) &&
+      digit.test(password) &&
+      special.test(password) &&
+      minnumber.test(password)
+    ) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+         toast.success("Registration Successfully");
+         
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+         console.log(errorCode);
+         console.log(errorMessage);
+         
+        });
+    }
+  };
 
   return (
-    <section className='py-30'>
-        <Container>
-          <Flex className="items-center">
-            <div className='w-8/12 pr-10'>
-        <Image src={SignUpBanner}/>
+    <section className="py-30">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
 
-            </div>
+      <Container>
+        <Flex className="items-center">
+          <div className="w-8/12 pr-10">
+            <Image src={SignUpBanner} />
+          </div>
 
+          <div className="w-4/12">
+            <h4 className="font-medium text-4xl text-black font-inter">
+              Create an account
+            </h4>
+            <p className="font-normal font-pop text-base text-black pt-6">
+              Enter your details below
+            </p>
 
-            <div className='w-4/12'>
-            <h4 className='font-medium text-4xl text-black font-inter'>Create an account</h4>
-            <p className='font-normal font-pop text-base text-black pt-6'>Enter your details below</p>
+            <Input
+              onChange={handleName}
+              type="text"
+              placeholder="Name"
+              className="w-full outline-none border-b border-[#00000066] mt-10"
+            />
+            {nameError && (
+              <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
+                {nameError}
+              </p>
+            )}
+            <Input
+              onChange={handleEmail}
+              type="text"
+              placeholder="Email or Phone Number"
+              className="w-full outline-none border-b border-[#00000066] mt-10"
+            />
+            {emailError && (
+              <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
+                {emailError}
+              </p>
+            )}
+            <Input
+              onChange={handlePassword}
+              type="text"
+              placeholder="Password"
+              className="w-full outline-none border-b border-[#00000066] mt-10"
+            />
+            {passwordError && (
+              <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
+                {passwordError}
+              </p>
+            )}
 
-
-            <Input onChange={handleName} type="text" placeholder="Name" className="w-full outline-none border-b border-[#00000066] mt-10"/>
-           {
-            nameError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{nameError}</p>
-           }
-            <Input onChange={handleEmail} type="text" placeholder="Email or Phone Number" className="w-full outline-none border-b border-[#00000066] mt-10"/>
-            {
-            emailError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{emailError}</p>
-           }
-            <Input onChange={handlePassword} type="password" placeholder="Password" className="w-full outline-none border-b border-[#00000066] mt-10"/>
-            {
-            passwordError && <p className='bg-red-500 py-2 text-white px-5 mt-2 rounded'>{passwordError}</p>
-           }
-
-            <div  className='mt-10 '>
+            <div className="mt-10 ">
               <div onClick={handleCreateAccount}>
-                <Button  text="Create Account" className="w-full"/>
+                <Button text="Create Account" className="w-full" />
               </div>
 
-              <div className='border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3'>
-                <FcGoogle className='text-2xl'/>
-                <button className=' text-base font-pop font-normal text-black '> Sign up with Google</button>
+              <div className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
+                <FcGoogle className="text-2xl" />
+                <button className=" text-base font-pop font-normal text-black ">
+                  {" "}
+                  Sign up with Google
+                </button>
               </div>
-              <p className='font-pop text-base font-normal text-[#00000070]'>Already have account? <span className='font-medium text-black underline pl-2 cursor-pointer'>Log in</span></p>
+              <p className="font-pop text-base font-normal text-[#00000070]">
+                Already have account?{" "}
+                <span className="font-medium text-black underline pl-2 cursor-pointer">
+                  Log in
+                </span>
+              </p>
             </div>
-            </div>
-          </Flex>
-        </Container>
-      </section>
+          </div>
+        </Flex>
+      </Container>
+    </section>
+  );
+};
 
-  )
-}
-
-export default Signup
+export default Signup;
