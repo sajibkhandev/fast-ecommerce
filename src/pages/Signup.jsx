@@ -7,10 +7,12 @@ import { FcGoogle } from "react-icons/fc";
 import Image from "../components/Image";
 import SignUpBanner from "../assets/LoginImage.png";
 import { ToastContainer, toast } from "react-toastify";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,sendEmailVerification  } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const auth = getAuth();
+  const navigate=useNavigate()
   let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   let lowercase = /(?=.*[a-z])/;
   let uppercase = /(?=.*[A-Z])/;
@@ -50,39 +52,30 @@ const Signup = () => {
     }
     if (!password) {
       setPasswordError("Enter Your password");
-    } else if (!lowercase.test(password)) {
-      setPasswordError("Lowercase Must");
-    } else if (!uppercase.test(password)) {
-      setPasswordError("Uppercase Must");
-    } else if (!digit.test(password)) {
-      setPasswordError("Digit Must");
-    } else if (!special.test(password)) {
-      setPasswordError("Special Must");
-    } else if (!minnumber.test(password)) {
-      setPasswordError("Minimum 6 digit");
-    }
+    } 
+   
 
-    if (
-      name &&
-      email &&
-      password &&
-      emailRegex.test(email) &&
-      lowercase.test(password) &&
-      uppercase.test(password) &&
-      digit.test(password) &&
-      special.test(password) &&
-      minnumber.test(password)
-    ) {
+    if (name && email && password){
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+        sendEmailVerification(auth.currentUser)
          toast.success("Registration Successfully");
+         console.log(userCredential.user);
+         
+         setTimeout(() => {
+          navigate("/login")
+          
+         }, 2000);
          
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-         console.log(errorCode);
-         console.log(errorMessage);
+          console.log(errorCode);
+          
+         if(errorCode.includes("auth/email-already-in-use")){
+          toast.error("Already Use")
+         } 
+       
          
         });
     }
@@ -165,9 +158,11 @@ const Signup = () => {
               </div>
               <p className="font-pop text-base font-normal text-[#00000070]">
                 Already have account?{" "}
+                <Link to='/login'>
                 <span className="font-medium text-black underline pl-2 cursor-pointer">
                   Log in
                 </span>
+                </Link>
               </p>
             </div>
           </div>

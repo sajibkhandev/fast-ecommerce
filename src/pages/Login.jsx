@@ -1,84 +1,137 @@
 import Container from "../components/Container"
 import Flex from "../components/Flex"
 import Image from "../components/Image"
-import RootLayout from "../layouts/RootLayout"
 import loginImg from "../assets/loginImage.png"
 import Heading from "../components/Heading"
 import Button from "../components/Button"
-import { useForm } from "react-hook-form";
+import { useState } from "react"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom"
+
 
 
 
 const Login = () => {
+  const auth = getAuth();
+  const navigate=useNavigate()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [emailError, setEmailError] = useState("");
+  let [passwordError, setPasswordError] = useState("");
+  let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+
+  let handleEmail = (e) => {
+    setEmail(e.target.value);
+    setEmailError("");
   };
 
+  let handlePassword = (e) => {
+    setPassword(e.target.value);
+    setPasswordError("");
+  };
+
+
+  let handleLogin = () => {
+
+    if (!email) {
+      setEmailError("Enter Your Email");
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Enter Valid Email");
+    }
+    if (!password) {
+      setPasswordError("Enter Your password");
+    } if (email && password && emailRegex.test(email)) {
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+
+          if(userCredential.user.emailVerified){
+          toast.success("Login Successful")
+          setTimeout(()=>{
+            navigate("/")
+          },2000)
+          }else{
+            toast.error("Verify Your Email")
+          }
+
+         
+          
+         
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+
+    }
+
+  }
+
+
   return (
-<Container>
-  <Flex className="pt-15 items-center justify-between gap-10 px-4 pt-15 pb-[140px]">
-  <div className="w-1/2">
-    <Image src={loginImg}>
-    </Image>
-  </div>
-  <div className="w-1/2 pl-[129px]">
+    <Container>
+    <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <Flex className="pt-15 items-center justify-between gap-10 px-4 pt-15 pb-[140px]">
+        <div className="w-1/2">
+          <Image src={loginImg}>
+          </Image>
+        </div>
+        <div className="w-1/2 pl-[129px]">
 
-<Heading text="Login to Exclusive"></Heading>
-<p className="font-pop text-base font-regular pt-6 pb-12"> Enter your details below </p>
+          <Heading text="Login to Exclusive"></Heading>
+          <p className="font-pop text-base font-regular pt-6 pb-12"> Enter your details below </p>
 
 
-<form onSubmit={handleSubmit(onSubmit)} className="space-y-6"/>
 
-<div className="flex flex-col pb-10 gap-10">
-<div>
-  <input type="email" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Email or Phone Number"
-        {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value:
-                      /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Invalid email address",
-                  },
-                })}
-/>
 
-   {errors.email && (
-                <p className="text-red-500 text-sm mt-2">
-                  {errors.email.message}
+          <div className="flex flex-col pb-10 gap-10">
+            <div>
+              <input onChange={handleEmail} type="email" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Email or Phone Number"
+
+              />
+              {emailError && (
+                <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
+                  {emailError}
                 </p>
               )}
-</div>
-<div>
-  <input type="password" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message:
-                      "Password must be at least 6 characters",
-                  },
-                })}/>
-                   {errors.password && (
-                <p className="text-red-500 text-sm mt-2">
-                  {errors.password.message}
+
+            </div>
+            <div>
+              <input onChange={handlePassword} type="password" className="w-full border-b border-gray-300 outline-none py-3 placeholder:text-gray-400 focus:border-black transition-all duration-300" placeholder="Password"
+              />
+              {passwordError && (
+                <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
+                  {passwordError}
                 </p>
               )}
-</div>
-</div>
-<div className="flex items-center justify-center pt-2">
-  <Button className="" text="Login" type="submit"></Button>
-  <a href="" className="pl-[87px] text-base font-regular font-pop text-primary">Forget Password?</a>
-</div>
-  </div>
-  </Flex>
-</Container>
+
+
+            </div>
+          </div>
+          <div className="flex items-center  pt-2">
+            <div onClick={handleLogin}>
+              <Button className="" text="Login" type="submit"></Button>
+            </div>
+            <a href="" className="pl-[87px] text-base font-regular font-pop text-primary">Forget Password?</a>
+          </div>
+        </div>
+      </Flex>
+    </Container>
   )
 }
 
