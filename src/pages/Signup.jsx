@@ -5,7 +5,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { FcGoogle } from "react-icons/fc";
 import Image from "../components/Image";
-import SignUpBanner from "../assets/LoginImage.png";
+import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
 import { getAuth, createUserWithEmailAndPassword,sendEmailVerification  } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ const Signup = () => {
 
   let handlePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordError("");
+    setPasswordError(""); 
   };
 
   let handleCreateAccount = () => {
@@ -52,8 +52,8 @@ const Signup = () => {
     }
     if (!password) {
       setPasswordError("Enter Your password");
-    } 
-   
+    }
+
 
     if (name && email && password){
       createUserWithEmailAndPassword(auth, email, password)
@@ -61,22 +61,22 @@ const Signup = () => {
         sendEmailVerification(auth.currentUser)
          toast.success("Registration Successfully");
          console.log(userCredential.user);
-         
+
          setTimeout(() => {
           navigate("/login")
-          
+
          }, 2000);
-         
+
         })
         .catch((error) => {
           const errorCode = error.code;
           console.log(errorCode);
-          
+
          if(errorCode.includes("auth/email-already-in-use")){
           toast.error("Already Use")
-         } 
-       
-         
+         }
+
+
         });
     }
   };
