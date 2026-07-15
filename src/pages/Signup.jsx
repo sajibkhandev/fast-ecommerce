@@ -9,8 +9,11 @@ import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
 import { getAuth, createUserWithEmailAndPassword,sendEmailVerification  } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const Signup = () => {
+  const [showPasswordIcon,setShowPasswordIcon] = useState(false)
+  const [showPassword,setShowPassword] = useState("password")
   const auth = getAuth();
   const navigate=useNavigate()
   let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -38,7 +41,7 @@ const Signup = () => {
 
   let handlePassword = (e) => {
     setPassword(e.target.value);
-    setPasswordError(""); 
+    setPasswordError("");
   };
 
   let handleCreateAccount = () => {
@@ -79,7 +82,14 @@ const Signup = () => {
 
         });
     }
+
   };
+
+
+  const handleShowPassword = () => {
+    setShowPasswordIcon(!showPasswordIcon)
+    setShowPassword(showPassword === "password" ? "text" : "password")
+  }
 
   return (
     <section className="py-30">
@@ -132,12 +142,22 @@ const Signup = () => {
                 {emailError}
               </p>
             )}
-            <Input
+            <div className="flex items-center">
+              <Input
               onChange={handlePassword}
-              type="text"
+              type={showPassword}
               placeholder="Password"
-              className="w-full outline-none border-b border-[#00000066] mt-10"
+              className="flex-1 w-full outline-none border-b border-[#00000066] mt-10"
             />
+            <div onClick={handleShowPassword} className="cursor-pointer">
+              {
+                showPasswordIcon? <IoEyeOutline className="mt-12 text-2xl"/>:<IoEyeOffOutline className="mt-12 text-2xl"/>
+
+              }
+            </div>
+
+            </div>
+
             {passwordError && (
               <p className="bg-red-500 py-2 text-white px-5 mt-2 rounded">
                 {passwordError}
