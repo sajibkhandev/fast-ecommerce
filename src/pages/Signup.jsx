@@ -7,15 +7,16 @@ import { FcGoogle } from "react-icons/fc";
 import Image from "../components/Image";
 import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
-import { getAuth, createUserWithEmailAndPassword,sendEmailVerification  } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { Audio, DNA } from "react-loader-spinner";
 
 const Signup = () => {
-  const [showPasswordIcon,setShowPasswordIcon] = useState(false)
-  const [showPassword,setShowPassword] = useState("password")
+  const [showPasswordIcon, setShowPasswordIcon] = useState(false)
+  const [showPassword, setShowPassword] = useState("password")
   const auth = getAuth();
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   let lowercase = /(?=.*[a-z])/;
   let uppercase = /(?=.*[A-Z])/;
@@ -29,6 +30,7 @@ const Signup = () => {
   let [nameError, setNameError] = useState("");
   let [emailError, setEmailError] = useState("");
   let [passwordError, setPasswordError] = useState("");
+  let [loader, setLoader] = useState(false)
   let handleName = (e) => {
     setName(e.target.value);
     setNameError("");
@@ -58,26 +60,28 @@ const Signup = () => {
     }
 
 
-    if (name && email && password){
+    if (name && email && password) {
+      setLoader(true)
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-        sendEmailVerification(auth.currentUser)
-         toast.success("Registration Successfully");
-         console.log(userCredential.user);
+          sendEmailVerification(auth.currentUser)
+          toast.success("Registration Successfully");
+          console.log(userCredential.user);
+          setLoader(false)
 
-         setTimeout(() => {
-          navigate("/login")
+          setTimeout(() => {
+            navigate("/login")
 
-         }, 2000);
+          }, 2000);
 
         })
         .catch((error) => {
           const errorCode = error.code;
           console.log(errorCode);
 
-         if(errorCode.includes("auth/email-already-in-use")){
-          toast.error("Already Use")
-         }
+          if (errorCode.includes("auth/email-already-in-use")) {
+            toast.error("Already Use")
+          }
 
 
         });
@@ -144,17 +148,17 @@ const Signup = () => {
             )}
             <div className="flex items-center">
               <Input
-              onChange={handlePassword}
-              type={showPassword}
-              placeholder="Password"
-              className="flex-1 w-full outline-none border-b border-[#00000066] mt-10"
-            />
-            <div onClick={handleShowPassword} className="cursor-pointer">
-              {
-                showPasswordIcon? <IoEyeOutline className="mt-12 text-2xl"/>:<IoEyeOffOutline className="mt-12 text-2xl"/>
+                onChange={handlePassword}
+                type={showPassword}
+                placeholder="Password"
+                className="flex-1 w-full outline-none border-b border-[#00000066] mt-10"
+              />
+              <div onClick={handleShowPassword} className="cursor-pointer">
+                {
+                  showPasswordIcon ? <IoEyeOutline className="mt-12 text-2xl" /> : <IoEyeOffOutline className="mt-12 text-2xl" />
 
-              }
-            </div>
+                }
+              </div>
 
             </div>
 
@@ -165,9 +169,23 @@ const Signup = () => {
             )}
 
             <div className="mt-10 ">
-              <div onClick={handleCreateAccount}>
-                <Button text="Create Account" className="w-full" />
-              </div>
+              {
+                loader
+                  ?
+                  <DNA
+                    visible={true}
+                    height="100"
+                    width="100"
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{background:red}}
+                    wrapperClass="dna-wrapper"
+                  />
+                  :
+                  <div onClick={handleCreateAccount}>
+                    <Button text="Create Account" className="w-full" />
+                  </div>
+              }
+
 
               <div className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
                 <FcGoogle className="text-2xl" />
@@ -179,9 +197,9 @@ const Signup = () => {
               <p className="font-pop text-base font-normal text-[#00000070]">
                 Already have account?{" "}
                 <Link to='/login'>
-                <span className="font-medium text-black underline pl-2 cursor-pointer">
-                  Log in
-                </span>
+                  <span className="font-medium text-black underline pl-2 cursor-pointer">
+                    Log in
+                  </span>
                 </Link>
               </p>
             </div>
