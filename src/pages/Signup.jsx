@@ -10,8 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { Audio, DNA } from "react-loader-spinner";
-
+import { Audio, DNA, ColorRing } from "react-loader-spinner";
 const Signup = () => {
   const [showPasswordIcon, setShowPasswordIcon] = useState(false)
   const [showPassword, setShowPassword] = useState("password")
@@ -30,7 +29,8 @@ const Signup = () => {
   let [nameError, setNameError] = useState("");
   let [emailError, setEmailError] = useState("");
   let [passwordError, setPasswordError] = useState("");
-  let [loader, setLoader] = useState(false)
+const [loader, setLoader] = useState(false);
+
   let handleName = (e) => {
     setName(e.target.value);
     setNameError("");
@@ -67,23 +67,21 @@ const Signup = () => {
           sendEmailVerification(auth.currentUser)
           toast.success("Registration Successfully");
           console.log(userCredential.user);
-          setLoader(false)
 
           setTimeout(() => {
             navigate("/login")
-
           }, 2000);
-
         })
         .catch((error) => {
           const errorCode = error.code;
           console.log(errorCode);
 
           if (errorCode.includes("auth/email-already-in-use")) {
-            toast.error("Already Use")
+            toast.error("Email already in use");
           }
-
-
+        })
+        .finally(() => {
+          setLoader(false);
         });
     }
 
@@ -167,26 +165,28 @@ const Signup = () => {
                 {passwordError}
               </p>
             )}
-
             <div className="mt-10 ">
-              {
-                loader
-                  ?
-                  <DNA
-                    visible={true}
-                    height="100"
-                    width="100"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{background:red}}
-                    wrapperClass="dna-wrapper"
-                  />
-                  :
-                  <div onClick={handleCreateAccount}>
-                    <Button text="Create Account" className="w-full" />
-                  </div>
-              }
-
-
+             <div onClick={!loader ? handleCreateAccount : undefined}>
+  <Button
+    className="w-full py-4 mt-4 mb-4 flex justify-center items-center gap-x-3"
+    type="button"
+    text={
+      loader ? (
+        <ColorRing
+          visible={true}
+          height="24"
+          width="24"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      ) : (
+        "Create Account"
+      )
+    }
+  />
+</div>
               <div className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
                 <FcGoogle className="text-2xl" />
                 <button className=" text-base font-pop font-normal text-black ">

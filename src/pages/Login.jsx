@@ -10,13 +10,14 @@ import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { RxCross2 } from "react-icons/rx";
-import { Audio } from 'react-loader-spinner'
+import { Audio, ColorRing } from 'react-loader-spinner'
 
 
 const Login = () => {
   const [showPasswordIcon, setShowPasswordIcon] = useState(false)
   const [showPassword, setShowPassword] = useState('password')
   const [popup, setPopup] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const auth = getAuth()
   const navigate = useNavigate()
@@ -38,39 +39,42 @@ const Login = () => {
     setPasswordError('')
   }
 
-  let handleLogin = () => {
-    if (!email) {
-      setEmailError('Enter Your Email')
-    } else if (!emailRegex.test(email)) {
-      setEmailError('Enter Valid Email')
-    }
-    if (!password) {
-      setPasswordError('Enter Your password')
-    }
-    if (email && password && emailRegex.test(email)) {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          if (userCredential.user.emailVerified) {
-            toast.success('Login Successful')
-            setTimeout(() => {
-              navigate('/')
-            }, 2000)
-          } else {
-            toast.error('Verify Your Email')
-          }
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          if (errorCode.includes("auth/invalid-credential")) {
-            toast.error("invalid credential")
-          }
+  let handleLogin = async () => {
+    try {
+      if (!email) {
+        setEmailError('Enter Your Email')
+      } else if (!emailRegex.test(email)) {
+        setEmailError('Enter Valid Email')
+      }
+      if (!password) {
+        setPasswordError('Enter Your password')
+      }
 
-
-
-        })
+      if (email && password && emailRegex.test(email)) {
+        setLoading(true)
+        const userCredential = await signInWithEmailAndPassword(auth, email, password)
+        if (userCredential.user.emailVerified) {
+          toast.success('Login Successful')
+          setTimeout(() => {
+            navigate('/')
+          }, 2000)
+        } else {
+          toast.error('Verify Your Email')
+        }
+      }
+    } catch (error) {
+      const errorCode = error.code || ''
+      if (errorCode.includes('auth/invalid-credential')) {
+        toast.error('invalid credential')
+      } else {
+        toast.error(error.message || 'Login failed')
+      }
+    } finally {
+      setLoading(false)
     }
   }
+
+
 
   const handleShowPassword = () => {
     setShowPasswordIcon(!showPasswordIcon)
@@ -89,7 +93,6 @@ const Login = () => {
         const errorCode = error.code;
 
       });
-
   }
 
   return (
@@ -159,9 +162,27 @@ const Login = () => {
               </div>
             </div>
             <div className="flex items-center  pt-2">
-              <div onClick={handleLogin}>
-                <Button className="" text="Login" type="submit"></Button>
-              </div>
+            <div onClick={!loading ? handleLogin : undefined}>
+  <Button
+    className=""
+    type="button"
+    text={
+      loading ? (
+        <ColorRing
+          visible={true}
+          height="24"
+          width="24"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      ) : (
+        "Login"
+      )
+    }
+  />
+</div>
               <p onClick={() => setPopup(true)}
                 className="pl-[87px] cursor-pointer text-base font-regular font-pop text-primary"
               >
@@ -170,29 +191,25 @@ const Login = () => {
             </div>
           </div>
         </Flex>
-
       </Container>
 
       {
         popup &&
-        <div className='z-50 fixed top-0 left-0 w-full h-screen bg-black/80 flex justify-center items-center '>
-          <div className='relative w-[500px] py-16 px-10  bg-white rounded-md flex flex-col justify-center items-start gap-y-5'>
-            <RxCross2 onClick={() => setPopup(false)} className='absolute top-5 right-5 text-2xl' />
-
-            <h2 className='text-3xl text-black font-bold font-pop'>Forget Your Password!</h2>
-            <p className='text-base  pt-6'>Enter Your Email to Reset Password:</p>
+        <div onClick={() => setPopup(false)} className='z-50 fixed top-0 left-0 w-full h-screen bg-black/80 flex justify-center items-center '>
+          <div onClick={(e) => e.stopPropagation()} className='relative w-[500px] py-16 px-10  bg-white rounded-md flex flex-col justify-center items-start gap-y-5'>
+            <RxCross2 onClick={() => setPopup(false)} className='absolute top-5 right-5 text-2xl'/>
+            <h2 className='text-3xl text-black font-bold font-pop'>Forget Your Password?</h2>
+            <p className='text-base  pt-4'>Enter Your Email below to reset your password</p>
             <input onChange={(e) => setResetEmail(e.target.value)} className='py-1 px-2 border border-black/40 rounded w-full' type="text" />
             <div>
               <button onClick={() => setPopup(false)} className='py-2 px-5 bg-blue-500 text-white rounded mr-4'>Back to Login</button>
+              
               <button onClick={handleSend} className='py-2 px-10 bg-blue-500 text-white rounded'>Send</button>
             </div>
-
           </div>
         </div>
       }
     </section>
-
-
   )
 }
 
