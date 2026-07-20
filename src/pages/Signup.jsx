@@ -7,14 +7,17 @@ import { FcGoogle } from "react-icons/fc";
 import Image from "../components/Image";
 import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Audio, DNA, ColorRing } from "react-loader-spinner";
+
+
 const Signup = () => {
   const [showPasswordIcon, setShowPasswordIcon] = useState(false)
   const [showPassword, setShowPassword] = useState("password")
   const auth = getAuth();
+
   const navigate = useNavigate()
   let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   let lowercase = /(?=.*[a-z])/;
@@ -29,7 +32,7 @@ const Signup = () => {
   let [nameError, setNameError] = useState("");
   let [emailError, setEmailError] = useState("");
   let [passwordError, setPasswordError] = useState("");
-const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   let handleName = (e) => {
     setName(e.target.value);
@@ -91,6 +94,22 @@ const [loader, setLoader] = useState(false);
   const handleShowPassword = () => {
     setShowPasswordIcon(!showPasswordIcon)
     setShowPassword(showPassword === "password" ? "text" : "password")
+  }
+
+  let handleGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("Login Successful")
+        navigate("/")
+        
+      }).catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode);
+        
+
+      });
+
   }
 
   return (
@@ -166,28 +185,28 @@ const [loader, setLoader] = useState(false);
               </p>
             )}
             <div className="mt-10 ">
-             <div onClick={!loader ? handleCreateAccount : undefined}>
-  <Button
-    className="w-full py-4 mt-4 mb-4 flex justify-center items-center gap-x-3"
-    type="button"
-    text={
-      loader ? (
-        <ColorRing
-          visible={true}
-          height="24"
-          width="24"
-          ariaLabel="color-ring-loading"
-          wrapperStyle={{}}
-          wrapperClass="color-ring-wrapper"
-          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />
-      ) : (
-        "Create Account"
-      )
-    }
-  />
-</div>
-              <div className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
+              <div onClick={!loader ? handleCreateAccount : undefined}>
+                <Button
+                  className="w-full py-4 mt-4 mb-4 flex justify-center items-center gap-x-3"
+                  type="button"
+                  text={
+                    loader ? (
+                      <ColorRing
+                        visible={true}
+                        height="24"
+                        width="24"
+                        ariaLabel="color-ring-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="color-ring-wrapper"
+                        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                      />
+                    ) : (
+                      "Create Account"
+                    )
+                  }
+                />
+              </div>
+              <div onClick={handleGoogle} className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
                 <FcGoogle className="text-2xl" />
                 <button className=" text-base font-pop font-normal text-black ">
                   {" "}
