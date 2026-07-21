@@ -170,8 +170,8 @@ const Login = () => {
       loading ? (
         <ColorRing
           visible={true}
-          height="24"
-          width="24"
+          height="35"
+          width="35"
           ariaLabel="color-ring-loading"
           wrapperStyle={{}}
           wrapperClass="color-ring-wrapper"

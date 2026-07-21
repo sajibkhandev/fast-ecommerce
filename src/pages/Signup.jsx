@@ -4,6 +4,8 @@ import Flex from "../components/Flex";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { FcGoogle } from "react-icons/fc";
+import { FaFacebook} from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 import Image from "../components/Image";
 import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
@@ -33,6 +35,7 @@ const Signup = () => {
   let [emailError, setEmailError] = useState("");
   let [passwordError, setPasswordError] = useState("");
   const [loader, setLoader] = useState(false);
+  const [Signup, setSignup] = useState(false);
 
   let handleName = (e) => {
     setName(e.target.value);
@@ -60,6 +63,9 @@ const Signup = () => {
     }
     if (!password) {
       setPasswordError("Enter Your password");
+    }
+    let handlePopup = () => {
+      setSignup(!signup);
     }
 
 
@@ -193,8 +199,8 @@ const Signup = () => {
                     loader ? (
                       <ColorRing
                         visible={true}
-                        height="24"
-                        width="24"
+                        height="40"
+                        width="40"
                         ariaLabel="color-ring-loading"
                         wrapperStyle={{}}
                         wrapperClass="color-ring-wrapper"
@@ -206,11 +212,10 @@ const Signup = () => {
                   }
                 />
               </div>
-              <div onClick={handleGoogle} className="border border-[#00000066] w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3">
-                <FcGoogle className="text-2xl" />
-                <button className=" text-base font-pop font-normal text-black ">
+              <div onClick= {() => setSignup(true)} className="border border-[#00000066] rounded w-full py-4 mt-4 mb-8 flex justify-center items-center gap-x-3 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer">
+                <button className=" text-base font-pop font-normal  ">
                   {" "}
-                  Sign up with Google
+                  Sign up with Others
                 </button>
               </div>
               <p className="font-pop text-base font-normal text-[#00000070]">
@@ -225,6 +230,34 @@ const Signup = () => {
           </div>
         </Flex>
       </Container>
+      {
+      Signup && 
+          <>
+          <div onClick={() => setSignup(false)} className={`fixed top-0 left-0 w-full h-full bg-[#000000b3] z-50 flex items-center justify-center ${Signup ? "block" : "hidden"}`}></div>
+          <div className="fixed top-0 left-0 w-full h-full bg-black-50 flex justify-center items-center z-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg">
+              <h2 className="text-2xl font-bold mb-4">Sign up with</h2>
+              <div className="flex flex-col gap-4">
+                <button onClick={handleGoogle} className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
+                  <FcGoogle className="text-2xl" />
+                  Sign up with Google
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
+                <FaFacebook className="text-2xl text-blue-600" />
+                  Sign up with Facebook
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
+                <BsTwitterX className="text-2xl" />
+                  Sign up with Twitter
+                </button>
+              </div>
+              <button onClick={() => setSignup(false)} className="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition">
+                Close
+              </button>
+            </div>
+          </div>
+          </>
+        }
     </section>
   );
 };
