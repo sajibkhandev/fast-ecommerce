@@ -9,7 +9,7 @@ import { BsTwitterX } from "react-icons/bs";
 import Image from "../components/Image";
 import SignUpBanner from "../assets/loginImage.png";
 import { ToastContainer, toast } from "react-toastify";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Audio, DNA, ColorRing } from "react-loader-spinner";
@@ -112,8 +112,32 @@ const Signup = () => {
       }).catch((error) => {
         const errorCode = error.code;
         console.log(errorCode);
-        
+      });
 
+  }
+  let handleFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("Login Successful")
+        navigate("/")
+        
+      }).catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode);
+      });
+
+  }
+  let handleTwitter = () => {
+    const provider = new TwitterAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        toast.success("Login Successful")
+        navigate("/")
+        
+      }).catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode);
       });
 
   }
@@ -242,11 +266,11 @@ const Signup = () => {
                   <FcGoogle className="text-2xl" />
                   Sign up with Google
                 </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
+                <button onClick={handleFacebook} className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
                 <FaFacebook className="text-2xl text-blue-600" />
                   Sign up with Facebook
                 </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
+                <button onClick={handleTwitter} className="flex items-center justify-center gap-2 px-4 py-2 border rounded hover:bg-gray-100 transition">
                 <BsTwitterX className="text-2xl" />
                   Sign up with Twitter
                 </button>
